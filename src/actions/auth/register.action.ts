@@ -1,30 +1,27 @@
 import { Request, Response } from "express";
-import { AppDataSource } from "../../data-source";
-import { User } from "../../entity/User";
-// import { Users } from "../../entity/User";
+import register from "../../security/services/register.service";
 
+/**
+ *
+ *
+ * @returns either status 201 (c) **OR** status 400 (Bad Request)
+ *
+ * **Status 201 returns** - the status 201 and a json with an object User filled with name, email, password, dateCreated and dateEdited
+ * **Status 400 returns** - the status 400 and a json with the code: 400, error which is a string and the message which is error.message
+ */
 const action = async (req: Request, res: Response) => {
-  const data = req.body;
-  console.log(data);
-
   try {
-    const user = new User();
-    user.name = data.name;
-    user.email = data.email;
-    user.password = data.password;
-    user.dateCreated = Date.now();
-    user.dateEdited = Date.now();
+    const { name, email, password } = req.body;
+    const token = await register(name, email, password);
 
-    await AppDataSource.manager
-      .save(user)
-      .then(() => console.log("user saved"));
+    return res.status(201).json({ token });
   } catch (error) {
-    console.log(error?.message);
-
-    throw new Error();
+    return res.status(400).json({
+      code: 400,
+      error: "error while creating user",
+      message: error.message,
+    });
   }
-
-  return res.end();
 };
 
 export default action;
