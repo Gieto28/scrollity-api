@@ -19,9 +19,10 @@ export class User {
   @Column()
   password: string;
 
-  @Column({ type: "timestamp" })
-  dateCreated: number;
+  @Column()
+  dateCreated: Date;
 
-  @Column({ type: "timestamp" })
-  dateEdited: number;
+  @Column()
+  dateEdited: Date;
+  id: any;
 }

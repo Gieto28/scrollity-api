@@ -1,4 +1,4 @@
-import { Request, Response, Router } from "express";
+import { Response, Router } from "express";
 import { name, version } from "../../package.json";
 import authRoutes from "./auth";
 import postsRoutes from "./posts";
