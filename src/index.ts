@@ -2,14 +2,15 @@ require("dotenv").config();
 import { AppDataSource } from "./data-source";
 import app from "./app";
 
-const PORT = process.env.PORT || 3003;
+const port = Number(process.env.TYPEORM_PORT) || 3003;
 
 AppDataSource.initialize()
   .then(async () => {
     // start express server
-    app.listen(PORT, () =>
+    app.listen(port, () =>
       console.log(
-        `\u{1F525} Serving starting on port ${PORT} - click here http://localhost:${PORT} to go to server`
+        console.log(process.env.port),
+        `\u{1F525} Serving starting on port ${port} - click here http://localhost:${port} to go to server`
       )
     );
   })
