@@ -18,6 +18,6 @@ routes.post("/logout", logoutAction);
 
 routes.get("/profile/:id", getProfileAction);
 routes.get("/profile/all", getAllProfilesAction);
-routes.post("/profile", updateProfileAction);
+routes.post("/profile/update/:id", updateProfileAction);
 
 export default routes;

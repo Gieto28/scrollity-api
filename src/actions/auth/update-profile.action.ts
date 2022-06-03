@@ -1,21 +1,31 @@
-import bcrypt from "bcrypt";
 import { Request, Response } from "express";
-import { AppDataSource } from "../../data-source";
-import { User } from "../../entity/User";
+import updateProfile from "../../security/services/update-profile.service";
 
-const action = async (req: Request, res: Response) => {
+/**
+ *
+ *
+ * @returns either status 204 (updated successfully) **OR** status 400 (Bad Request)
+ *
+ * **Status 204 returns** - the status 204 and a json with an object wtih a token
+ * **Status 400 returns** - the status 400 and a json with the code: 400, error which is a string and the message which is error.message
+ */
+const action = async (req: Request, res: Response): Promise<Response> => {
   const { id } = req.params;
   const { name, email, password } = req.body;
-  const connection = AppDataSource.manager.connection;
+  console.log(id, name, email, password);
 
   try {
-    const table = connection.getRepository(User);
+    const token = await updateProfile(Number(id), name, email, password);
+    console.log(token);
 
-    const user = await table.findOne({ where: { id: Number(id) } });
-    user.name = name ?? user.name;
-    user.email = email ?? user.email;
-    user.password = password ?? user.password;
-  } catch (e) {}
+    return res.status(204).json({ token });
+  } catch (e) {
+    return res.status(400).json({
+      code: 400,
+      error: "error while updating user",
+      message: e.message,
+    });
+  }
 };
 
 export default action;
