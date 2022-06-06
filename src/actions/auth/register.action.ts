@@ -3,6 +3,7 @@ import register from "../../security/services/register.service";
 
 /**
  *
+ * **ROUTE** auth/register
  *
  * @returns either status 201 (created) **OR** status 400 (Bad Request)
  *
@@ -11,7 +12,10 @@ import register from "../../security/services/register.service";
  */
 const action = async (req: Request, res: Response): Promise<Response> => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, passwordConfirmation } = req.body;
+    if (password !== passwordConfirmation) {
+      throw new Error("password doesn't match");
+    }
     const token = await register(name, email, password);
 
     return res.status(201).json({ token });

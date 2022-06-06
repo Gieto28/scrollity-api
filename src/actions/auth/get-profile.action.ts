@@ -1,7 +1,44 @@
 import { Request, Response } from "express";
+import { AppDataSource } from "../../data-source";
+import { User } from "../../entity/User";
+/**
+ *
+ * **ROUTE** auth/profile/:id
+ *
+ * @returns either status 200 (OK) **OR** status 404 (Resource not found)
+ *
+ * **Status 200 returns** - the status 200 and a json with an object with the profile with the id in the url
+ * **Status 404 returns** - the status 404 and a json with the code: 404, error which is a string and the message which is error.message
+ */
+const action = async (req: Request, res: Response): Promise<Response> => {
+  try {
+    const { id } = req.params;
 
-const action = async (req: Request, res: Response) => {
-  return res.json({ profile: "specific profile" });
+    const table = AppDataSource.manager.connection.getRepository(User);
+
+    const profile = await table.findOne({
+      where: { _id: Number(id) },
+      select: {
+        _id: true,
+        name: true,
+        email: true,
+        dateCreated: true,
+        dateEdited: true,
+      },
+    });
+
+    const notFound = `Error while fetching profile or profile with id ${id} doesn't exist`;
+
+    return res
+      .status(200)
+      .json({ title: `Profile with id: ${id}`, data: profile ?? notFound });
+  } catch (e) {
+    return res.status(404).json({
+      code: 404,
+      error: "User Not found",
+      message: e.message,
+    });
+  }
 };
 
 export default action;

@@ -3,6 +3,7 @@ import updateProfile from "../../security/services/update-profile.service";
 
 /**
  *
+ * **ROUTE** auth/profile/update/:id
  *
  * @returns either status 204 (updated successfully) **OR** status 400 (Bad Request)
  *
@@ -12,11 +13,9 @@ import updateProfile from "../../security/services/update-profile.service";
 const action = async (req: Request, res: Response): Promise<Response> => {
   const { id } = req.params;
   const { name, email, password } = req.body;
-  console.log(id, name, email, password);
 
   try {
     const token = await updateProfile(Number(id), name, email, password);
-    console.log(token);
 
     return res.status(204).json({ token });
   } catch (e) {

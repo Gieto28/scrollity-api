@@ -7,13 +7,19 @@ async function attemptLogin(email: string, password: string): Promise<string> {
   const connection = AppDataSource.manager.connection;
   const table = connection.getRepository(User);
 
-  const user = await table.findOne({ where: { email } });
+  try {
+    const user = await table.findOne({ where: { email } });
 
-  const comparedPassword = await bcrypt.compare(password, user?.password);
+    const comparePasswords = await bcrypt.compare(password, user?.password);
 
-  if (!user || !comparedPassword) throw new Error("Bad credentials");
+    if (!user || !comparePasswords) {
+      throw new Error("Bad Credentials");
+    }
 
-  return createToken(user);
+    return createToken(user);
+  } catch (error) {
+    throw new Error(`didn't find user`);
+  }
 }
 
 export default attemptLogin;
