@@ -9,9 +9,9 @@ import {
 
 const routes = Router();
 
-routes.get("/", getPostsAction);
+routes.get("/:id", getPostsAction);
 routes.get("/all", getAllPostsAction);
-routes.post("/", createPostsAction);
+routes.post("/create", createPostsAction);
 
 routes.post("/upVote/:id/:userId", upVotePostAction);
 routes.post("/downVote/:id/:userId", downVotePostAction);

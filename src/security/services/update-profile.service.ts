@@ -14,6 +14,7 @@ async function updateProfile(
   user.name = name ?? user.name;
   user.email = email ?? user.email;
   user.password = (await bcrypt.hash(password, 6)) ?? user.password;
+  user.dateEdited = new Date();
 
   await AppDataSource.manager.save(user);
 

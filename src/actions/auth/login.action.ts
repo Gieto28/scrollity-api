@@ -13,7 +13,6 @@ import attemptLogin from "../../security/services/attempt-login.service";
 const action = async (req: Request, res: Response): Promise<Response> => {
   try {
     const { email, password } = req.body;
-    console.log("email password from login action---", email, password);
 
     const token = await attemptLogin(email, password);
 
