@@ -5,7 +5,7 @@ async function createToken(user: User): Promise<string> {
   const token = sign(
     {
       exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 180,
-      username: user.email,
+      name: user.name,
       email: user.email,
       _id: user._id,
     },
