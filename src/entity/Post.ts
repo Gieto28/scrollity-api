@@ -18,6 +18,9 @@ export class Post {
   title: string;
 
   @Column()
+  creatorId: number;
+
+  @Column()
   media: string;
 
   @Column()
