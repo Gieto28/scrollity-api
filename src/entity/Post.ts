@@ -5,6 +5,7 @@ import {
   ManyToMany,
   JoinTable,
   OneToMany,
+  ManyToOne,
 } from "typeorm";
 import { Comment } from "./Comment";
 import { User } from "./User";
@@ -16,9 +17,6 @@ export class Post {
 
   @Column()
   title: string;
-
-  @Column()
-  creatorId: number;
 
   @Column()
   media: string;
@@ -34,6 +32,9 @@ export class Post {
 
   @Column()
   dateCreated: Date;
+
+  @ManyToOne(() => User, (user) => user._id)
+  creator: User;
 
   @OneToMany(() => Comment, (comment) => comment.post)
   comments: Comment[];
