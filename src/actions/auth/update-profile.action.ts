@@ -11,14 +11,25 @@ import updateProfile from "../../security/services/update-profile.service";
  * **Status 400 returns** - the status 400 and a json with the code: 400, error which is a string and the message which is error.message
  */
 const action = async (req: Request, res: Response): Promise<Response> => {
-  console.log(req);
-
-  const { _id: id } = req.user;
-
-  const { name, email, password } = req.body;
-
   try {
-    const token = await updateProfile(Number(id), name, email, password);
+    console.log(req);
+
+    const { _id: id } = req.user;
+    console.log(id);
+
+    const { name, password, passwordConfirmation } = req.body;
+    console.log(
+      "received values in body",
+      name,
+      password,
+      passwordConfirmation
+    );
+
+    if (password !== passwordConfirmation) {
+      throw new Error("password doesn't match");
+    }
+
+    const token = await updateProfile(Number(id), name, password);
 
     return res.status(200).json({ token });
   } catch (e) {
