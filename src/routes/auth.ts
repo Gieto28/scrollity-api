@@ -16,8 +16,8 @@ routes.post("/register", registerAction);
 
 routes.post("/logout", logoutAction);
 
-routes.get("/profile/:id", getProfileAction);
+routes.get("/profile", getProfileAction);
 routes.get("/profiles", getAllProfilesAction);
-routes.post("/profile/update", updateProfileAction);
+routes.post("/update", updateProfileAction);
 
 export default routes;

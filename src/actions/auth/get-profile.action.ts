@@ -12,7 +12,7 @@ import { User } from "../../entity/User";
  */
 const action = async (req: Request, res: Response): Promise<Response> => {
   try {
-    const { id } = req.params;
+    const { _id: id } = req.user;
 
     const table = AppDataSource.manager.connection.getRepository(User);
 
@@ -27,11 +27,13 @@ const action = async (req: Request, res: Response): Promise<Response> => {
       },
     });
 
+    if (profile._id !== id) {
+      throw new Error("user id in request does not match user id in profile");
+    }
+
     const notFound = `Error while fetching profile or profile with id ${id} doesn't exist`;
 
-    return res
-      .status(200)
-      .json({ title: `Profile with id: ${id}`, data: profile ?? notFound });
+    return res.status(200).json({ profile: profile ?? notFound });
   } catch (e) {
     return res.status(404).json({
       code: 404,

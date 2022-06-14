@@ -11,6 +11,8 @@ import updateProfile from "../../security/services/update-profile.service";
  * **Status 400 returns** - the status 400 and a json with the code: 400, error which is a string and the message which is error.message
  */
 const action = async (req: Request, res: Response): Promise<Response> => {
+  console.log(req);
+
   const { _id: id } = req.user;
 
   const { name, email, password } = req.body;
