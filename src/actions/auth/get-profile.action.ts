@@ -3,7 +3,7 @@ import { AppDataSource } from "../../data-source";
 import { User } from "../../entity/User";
 /**
  *
- * **ROUTE** auth/profile/:id
+ * **ROUTE** auth/profile
  *
  * @returns either status 200 (OK) **OR** status 404 (Resource not found)
  *

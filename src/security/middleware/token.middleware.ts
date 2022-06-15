@@ -3,9 +3,10 @@ import { verify, JwtPayload, VerifyErrors } from "jsonwebtoken";
 import { AppDataSource } from "../../data-source";
 import { User } from "../../entity/User";
 
-//
+// paths which can be accessed by anywhere without authentication
 const publicPaths = ["/auth/login", "/auth/register"];
 
+// verifying token from header authorization
 const verifyToken = (
   req: Request,
   res: Response,

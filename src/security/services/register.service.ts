@@ -1,9 +1,15 @@
 import bcrypt from "bcrypt";
-import { table } from "console";
 import { AppDataSource } from "../../data-source";
 import { User } from "../../entity/User";
 import createToken from "./token.service";
 
+/**
+ *
+ * @param name name value retrieved from the form by the front end
+ * @param email email value retrieved from the form by the front end
+ * @param password password value retrieved from the form by the front end
+ * @returns a token if successful otherwise throws an error
+ */
 async function register(
   name: string,
   email: string,

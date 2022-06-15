@@ -1,6 +1,11 @@
 import { sign } from "jsonwebtoken";
 import { User } from "../../entity/User";
 
+/**
+ *
+ * @param user used to create the token together with an expiration time
+ * @returns a token using expiration time, name, email and _id
+ */
 async function createToken(user: User): Promise<string> {
   const token = sign(
     {

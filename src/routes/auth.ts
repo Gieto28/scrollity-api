@@ -4,7 +4,6 @@ import {
   getProfileAction,
   updateProfileAction,
   registerAction,
-  logoutAction,
   getAllProfilesAction,
 } from "../actions/auth";
 
@@ -14,10 +13,9 @@ routes.post("/login", loginAction);
 
 routes.post("/register", registerAction);
 
-routes.post("/logout", logoutAction);
+routes.post("/update", updateProfileAction);
 
 routes.get("/profile", getProfileAction);
 routes.get("/profiles", getAllProfilesAction);
-routes.post("/update", updateProfileAction);
 
 export default routes;
