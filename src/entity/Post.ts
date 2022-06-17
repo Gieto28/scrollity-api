@@ -25,16 +25,19 @@ export class Post {
   description: string;
 
   @Column()
+  category: string;
+
+  @Column({ default: 0 })
   up_votes: number;
 
-  @Column()
+  @Column({ default: 0 })
   down_votes: number;
 
   @Column()
   dateCreated: Date;
 
-  @ManyToOne(() => User, (user) => user._id)
-  creator: User;
+  @ManyToOne(() => User, (user: User) => user.posts)
+  user: User;
 
   @OneToMany(() => Comment, (comment) => comment.post)
   comments: Comment[];

@@ -14,7 +14,7 @@ routes.get("/", async (_, res: Response) =>
 );
 
 routes.use("/auth", authRoutes);
-routes.use("/posts", postsRoutes);
-routes.use("/comments", commentsRoutes);
+routes.use("/post", postsRoutes);
+routes.use("/comment", commentsRoutes);
 
 export default routes;

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import register from "../../security/services/register.service";
+import { register } from "../../security";
 
 /**
  *
@@ -16,7 +16,8 @@ const action = async (req: Request, res: Response): Promise<Response> => {
     if (password !== passwordConfirmation) {
       throw new Error("password doesn't match");
     }
-    const token = await register(name, email, password);
+
+    const token: string = await register(name, email, password);
 
     return res.status(201).json({ token });
   } catch (e) {

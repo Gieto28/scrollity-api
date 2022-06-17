@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import updateProfile from "../../security/services/update-profile.service";
+import updateProfile from "../../security/services/Auth/update-profile.service";
 
 /**
  *
@@ -18,18 +18,12 @@ const action = async (req: Request, res: Response): Promise<Response> => {
     console.log(id);
 
     const { name, password, passwordConfirmation } = req.body;
-    console.log(
-      "received values in body",
-      name,
-      password,
-      passwordConfirmation
-    );
 
     if (password !== passwordConfirmation) {
       throw new Error("password doesn't match");
     }
 
-    const token = await updateProfile(Number(id), name, password);
+    const token: string = await updateProfile(Number(id), name, password);
 
     return res.status(200).json({ token });
   } catch (e) {

@@ -6,12 +6,13 @@ import {
   upVotePostAction,
   getAllPostsAction,
 } from "../actions/posts";
+import uploadMedia from "../multer";
 
 const routes = Router();
 
 routes.get("/:id", getPostsAction);
 routes.get("/all", getAllPostsAction);
-routes.post("/create", createPostsAction);
+routes.post("/create", uploadMedia, createPostsAction);
 
 routes.post("/upVote/:id/:userId", upVotePostAction);
 routes.post("/downVote/:id/:userId", downVotePostAction);

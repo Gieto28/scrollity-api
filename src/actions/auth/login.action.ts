@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import attemptLogin from "../../security/services/attempt-login.service";
+import { login } from "../../security";
 
 /**
  *
@@ -14,7 +14,7 @@ const action = async (req: Request, res: Response): Promise<Response> => {
   try {
     const { email, password } = req.body;
 
-    const token = await attemptLogin(email, password);
+    const token: string = await login(email, password);
 
     return res.status(200).json({ token });
   } catch (e) {

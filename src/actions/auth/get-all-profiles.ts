@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { Repository } from "typeorm";
 import { AppDataSource } from "../../data-source";
 import { User } from "../../entity/User";
 
@@ -11,9 +12,10 @@ import { User } from "../../entity/User";
  * **Status 200 returns** - the status 200 and a json with an object with a title and data containing all the users in the db
  */
 const action = async (req: Request, res: Response): Promise<Response> => {
-  const table = AppDataSource.manager.connection.getRepository(User);
+  const table: Repository<User> =
+    AppDataSource.manager.connection.getRepository(User);
 
-  const profiles = await table.find({
+  const profiles: User[] = await table.find({
     select: {
       _id: true,
       name: true,

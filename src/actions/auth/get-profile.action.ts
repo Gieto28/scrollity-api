@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { Repository } from "typeorm";
 import { AppDataSource } from "../../data-source";
 import { User } from "../../entity/User";
 /**
@@ -14,9 +15,10 @@ const action = async (req: Request, res: Response): Promise<Response> => {
   try {
     const { _id: id } = req.user;
 
-    const table = AppDataSource.manager.connection.getRepository(User);
+    const table: Repository<User> =
+      AppDataSource.manager.connection.getRepository(User);
 
-    const profile = await table.findOne({
+    const profile: User = await table.findOne({
       where: { _id: Number(id) },
       select: {
         _id: true,
@@ -31,7 +33,7 @@ const action = async (req: Request, res: Response): Promise<Response> => {
       throw new Error("user id in request does not match user id in profile");
     }
 
-    const notFound = `Error while fetching profile or profile with id ${id} doesn't exist`;
+    const notFound: string = `Error while fetching profile or profile with id ${id} doesn't exist`;
 
     return res.status(200).json({ profile: profile ?? notFound });
   } catch (e) {

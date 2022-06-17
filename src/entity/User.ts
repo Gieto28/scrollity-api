@@ -1,4 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import { Post } from "./Post";
 
 @Entity()
 export class User {
@@ -24,4 +25,7 @@ export class User {
 
   @Column()
   dateEdited: Date;
+
+  @OneToMany(() => Post, (post: Post) => post.user)
+  posts: Post[];
 }
