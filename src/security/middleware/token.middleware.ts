@@ -4,7 +4,7 @@ import { AppDataSource } from "../../data-source";
 import { User } from "../../entity/User";
 
 // paths which can be accessed by anywhere without authentication
-const publicPaths = ["/auth/login", "/auth/register"];
+const publicPaths = ["/auth/login", "/auth/register", "/public"];
 
 // verifying token from header authorization
 const verifyToken = (
@@ -20,7 +20,7 @@ const verifyToken = (
 
   const token = authHeader && authHeader.split(" ")[1];
 
-  if (!token) {
+  if (token == null) {
     return res.status(401).json({
       code: 401,
       error: "Unauthorized",

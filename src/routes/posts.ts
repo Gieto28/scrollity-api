@@ -11,7 +11,7 @@ import uploadMedia from "../multer";
 const routes = Router();
 
 routes.get("/:id", getPostsAction);
-routes.get("/all", getAllPostsAction);
+routes.get("/all/:category", getAllPostsAction);
 routes.post("/create", uploadMedia, createPostsAction);
 
 routes.post("/upVote/:id/:userId", upVotePostAction);

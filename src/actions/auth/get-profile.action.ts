@@ -13,7 +13,8 @@ import { User } from "../../entity/User";
  */
 const action = async (req: Request, res: Response): Promise<Response> => {
   try {
-    const { _id: id } = req.user;
+    // const { _id: id } = req.user;
+    const { _id: id } = req.params;
 
     const table: Repository<User> =
       AppDataSource.manager.connection.getRepository(User);
@@ -29,7 +30,7 @@ const action = async (req: Request, res: Response): Promise<Response> => {
       },
     });
 
-    if (profile._id !== id) {
+    if (profile._id !== Number(id)) {
       throw new Error("user id in request does not match user id in profile");
     }
 

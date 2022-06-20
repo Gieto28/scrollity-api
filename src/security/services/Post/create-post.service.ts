@@ -9,7 +9,7 @@ import { User } from "../../../entity/User";
  * @param title title of the post, required
  * @param description description of the post, optional
  * @param category: category of the post, optional, default is "Other"
- * @param filename: file name with place it belongs to, file type, random uuid and ext
+ * @param path: file path name with place it belongs to, file type, random uuid and ext
  * @returns
  */
 async function createPost(
@@ -17,29 +17,27 @@ async function createPost(
   title: string,
   description: string | null,
   category: string,
-  filename: string | null
+  path: string | null
 ) {
   try {
     const manager: EntityManager = AppDataSource.manager;
     const post_table: Repository<Post> = manager.connection.getRepository(Post);
     const user_table: Repository<User> = manager.connection.getRepository(User);
 
-    const user = await user_table.findOne({ where: { _id: Number(user_id) } });
+    const user: User = await user_table.findOne({
+      where: { _id: Number(user_id) },
+    });
 
-    console.log(user);
-
-    const post = new Post();
+    const post: Post = new Post();
     post.user = user;
     post.title = title;
-    post.media = filename;
+    post.media = path;
     post.description = description;
     post.category = category;
     post.dateCreated = new Date();
 
-    console.log(post);
-
     await post_table.save(post);
-    return { upload: "success" };
+    return { success: "created post successfully" };
   } catch (e) {
     console.log("error here now");
     throw new Error(e.message);

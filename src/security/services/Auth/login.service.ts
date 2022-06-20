@@ -17,9 +17,12 @@ async function login(email: string, password: string): Promise<string> {
   const table: Repository<User> = manager.connection.getRepository(User);
 
   try {
-    const user = await table.findOne({ where: { email } });
+    const user: User = await table.findOne({ where: { email } });
 
-    const comparePasswords = await bcrypt.compare(password, user?.password);
+    const comparePasswords: boolean = await bcrypt.compare(
+      password,
+      user?.password
+    );
 
     if (!user || !comparePasswords) {
       throw new Error("Bad Credentials");

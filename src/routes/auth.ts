@@ -7,7 +7,7 @@ import {
   getAllProfilesAction,
 } from "../actions/auth";
 
-const routes = Router();
+const routes: Router = Router();
 
 routes.post("/login", loginAction);
 
@@ -15,7 +15,7 @@ routes.post("/register", registerAction);
 
 routes.post("/update", updateProfileAction);
 
-routes.get("/profile", getProfileAction);
-routes.get("/profiles", getAllProfilesAction);
+routes.get("/profile/:id", getProfileAction);
+routes.get("/profile/all", getAllProfilesAction);
 
 export default routes;
