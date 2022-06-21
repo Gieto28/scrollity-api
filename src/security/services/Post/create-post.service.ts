@@ -17,7 +17,8 @@ async function createPost(
   title: string,
   description: string | null,
   category: string,
-  path: string | null
+  path: string | null,
+  mediaHeight: number
 ) {
   try {
     const manager: EntityManager = AppDataSource.manager;
@@ -35,6 +36,7 @@ async function createPost(
     post.description = description;
     post.category = category;
     post.dateCreated = new Date();
+    post.mediaHeight = mediaHeight;
 
     await post_table.save(post);
     return { success: "created post successfully" };

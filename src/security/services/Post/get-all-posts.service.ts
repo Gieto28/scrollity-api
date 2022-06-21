@@ -21,27 +21,47 @@ async function getAllPosts(category: string) {
         const TopPosts: Post[] = await table.find({
           order: {
             up_votes: "ASC",
+            dateCreated: "DESC",
           },
-          relations: ["user"],
+          take: 10,
+          relations: ["user", "comments"],
+          select: {
+            user: {
+              _id: true,
+            },
+          },
         });
         return TopPosts;
       case "New":
         const NewPosts: Post[] = await table.find({
           order: {
-            dateCreated: "ASC",
+            dateCreated: "DESC",
           },
-          relations: ["user"],
+          take: 10,
+          relations: ["user", "comments"],
+          select: {
+            user: {
+              _id: true,
+            },
+          },
         });
         return NewPosts;
       case "Random":
         const RandomPosts: Post[] = await table.find({
-          relations: ["user"],
+          relations: ["user", "comments"],
+          take: 10,
         });
         return RandomPosts;
       default:
         const CategoryPosts: Post[] = await table.find({
           where: { category },
-          relations: ["user"],
+          take: 10,
+          relations: ["user", "comments"],
+          select: {
+            user: {
+              _id: true,
+            },
+          },
         });
         return CategoryPosts;
     }

@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { Repository } from "typeorm";
 import { AppDataSource } from "../../data-source";
 import { User } from "../../entity/User";
+import getUser from "../../security/services/User/getUser.service";
 /**
  *
  * **ROUTE** auth/profile
@@ -14,29 +15,11 @@ import { User } from "../../entity/User";
 const action = async (req: Request, res: Response): Promise<Response> => {
   try {
     // const { _id: id } = req.user;
-    const { _id: id } = req.params;
+    const { id } = req.params;
 
-    const table: Repository<User> =
-      AppDataSource.manager.connection.getRepository(User);
+    const data = await getUser(Number(id));
 
-    const profile: User = await table.findOne({
-      where: { _id: Number(id) },
-      select: {
-        _id: true,
-        name: true,
-        email: true,
-        dateCreated: true,
-        dateEdited: true,
-      },
-    });
-
-    if (profile._id !== Number(id)) {
-      throw new Error("user id in request does not match user id in profile");
-    }
-
-    const notFound: string = `Error while fetching profile or profile with id ${id} doesn't exist`;
-
-    return res.status(200).json({ profile: profile ?? notFound });
+    return res.status(200).json(data);
   } catch (e) {
     return res.status(404).json({
       code: 404,

@@ -22,6 +22,9 @@ export class Post {
   media: string;
 
   @Column()
+  mediaHeight: number;
+
+  @Column()
   description: string;
 
   @Column()

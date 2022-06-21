@@ -16,8 +16,12 @@ async function login(email: string, password: string): Promise<string> {
   const manager: EntityManager = AppDataSource.manager;
   const table: Repository<User> = manager.connection.getRepository(User);
 
+  console.log("login", email, password);
+
   try {
-    const user: User = await table.findOne({ where: { email } });
+    const user: User = await table.findOne({
+      where: { email },
+    });
 
     const comparePasswords: boolean = await bcrypt.compare(
       password,
@@ -30,7 +34,7 @@ async function login(email: string, password: string): Promise<string> {
 
     return createToken(user);
   } catch (error) {
-    throw new Error(`didn't find user`);
+    throw new Error(error.message);
   }
 }
 

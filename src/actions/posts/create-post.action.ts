@@ -4,7 +4,7 @@ import { createPost } from "../../security";
 const action = async (req: Request, res: Response): Promise<Response> => {
   try {
     const { path } = req.file;
-    const { user_id, title, description, category } = await req.body;
+    const { user_id, title, description, category, mediaHeight } = await req.body;
 
     console.log("file", req.file);
     console.log("body", req.body);
@@ -14,7 +14,8 @@ const action = async (req: Request, res: Response): Promise<Response> => {
       title,
       description,
       category,
-      path
+      path,
+      mediaHeight,
     );
 
     return res.status(201).json({ data });

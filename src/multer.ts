@@ -10,14 +10,14 @@ const multerConfig: multer.StorageEngine = multer.diskStorage({
     callback: (arg0: null, arg1: string) => void
   ) => {
     const fileType: string = file.mimetype.split("/")[0];
-    const defaultFolder: string = "public/";
+    const defaultFolder: string = "public";
 
     // if the file being uploaded comes from the create posts screen, it'll have posts as it's first characters
     if (file.originalname.split(".")[0] === "post") {
       if (fileType === "image") {
-        return callback(null, `${defaultFolder}posts/images`);
+        return callback(null, `${defaultFolder}/posts/images`);
       } else if (fileType === "video") {
-        return callback(null, `${defaultFolder}posts/videos`);
+        return callback(null, `${defaultFolder}/posts/videos`);
       } else {
         callback(null, null);
         throw new Error("you can only upload video or image files");
@@ -25,7 +25,7 @@ const multerConfig: multer.StorageEngine = multer.diskStorage({
       // if the file being uploaded comes from the upload profile picture, it'll have profile as it's first characters
     } else if (file.originalname.split(".")[0] === "profile") {
       if (fileType === "image") {
-        return callback(null, `${defaultFolder}profiles/images`);
+        return callback(null, `${defaultFolder}/profiles/images`);
       } else {
         callback(null, null);
         throw new Error("you can only upload image files");
