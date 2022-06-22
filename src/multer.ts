@@ -1,16 +1,21 @@
-import e from "express";
+import express from "express";
 import multer from "multer";
 import { v4 as uuid } from "uuid";
-import { MulterFileModel } from "./models";
 
 const multerConfig: multer.StorageEngine = multer.diskStorage({
   destination: (
     req: any,
-    file: MulterFileModel,
+    file: Express.Multer.File,
     callback: (arg0: null, arg1: string) => void
   ) => {
     const fileType: string = file.mimetype.split("/")[0];
     const defaultFolder: string = "public";
+
+    if (file.path === null) {
+      return;
+      console.log("this is reaching here");
+    }
+    console.log("this is reaching there");
 
     // if the file being uploaded comes from the create posts screen, it'll have posts as it's first characters
     if (file.originalname.split(".")[0] === "post") {
@@ -34,30 +39,17 @@ const multerConfig: multer.StorageEngine = multer.diskStorage({
   },
   filename: (
     req: any,
-    file: MulterFileModel,
+    file: Express.Multer.File,
     callback: (arg0: null, arg1: string) => void
   ) => {
-    const ext = file.mimetype.split("/")[1];
-    const fileType = file.mimetype.split("/")[0];
-    //if file starts with post, it's first name will be post.(etc)
-    if (file.originalname.split(".")[0] === "post") {
-      callback(
-        null,
-        `post.user_${req.user._id}.type_${fileType}.${uuid()}.${ext}`
-      );
-      // if file starts with profile, it's first name will be profile.(etc)
-    } else if (file.originalname.split(".")[0] === "profile") {
-      callback(
-        null,
-        `profile.user_${req.user._id}.type_${fileType}.${uuid()}.${ext}`
-      );
-    }
+    console.log(file);
+    callback(null, file.originalname);
   },
 });
 
 const filterExt = (
   req: any,
-  file: MulterFileModel,
+  file: Express.Multer.File,
   callback: (arg0: any, arg1: boolean) => void
 ) => {
   if (file.mimetype.startsWith("image")) {
@@ -65,7 +57,6 @@ const filterExt = (
   } else if (file.mimetype.startsWith("video")) {
     callback(null, true);
   } else {
-    console.log("Invalid file type: " + file.mimetype.split("/")[0]);
     throw new Error("Invalid file type: " + file.mimetype.split("/")[0]);
   }
 };
@@ -75,6 +66,6 @@ const upload: multer.Multer = multer({
   fileFilter: filterExt,
 });
 
-const uploadMedia: e.RequestHandler = upload.single("media");
+const uploadMedia: express.RequestHandler = upload.single("media");
 
 export default uploadMedia;

@@ -18,13 +18,14 @@ export class Post {
   @Column()
   title: string;
 
-  @Column()
-  media: string;
+  @Column({
+    nullable: true,
+  })
+  media_id: string;
 
-  @Column()
-  mediaHeight: number;
-
-  @Column()
+  @Column({
+    nullable: true,
+  })
   description: string;
 
   @Column()

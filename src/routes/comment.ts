@@ -5,7 +5,7 @@ import {
   getCommentAction,
   getPostCommentsAction,
   upVoteCommentAction,
-} from "../actions/comments";
+} from "../actions/comment";
 
 const routes = Router();
 
