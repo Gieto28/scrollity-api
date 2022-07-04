@@ -11,11 +11,11 @@ import createToken from "./token.service";
  * @param password password value retrieved from the form by the front end
  * @returns a token if successful otherwise throws an error
  */
-async function register(
+const register = async (
   name: string,
   email: string,
   password: string
-): Promise<string> {
+): Promise<string> => {
   try {
     const manager: EntityManager = AppDataSource.manager;
     const table: Repository<User> = manager.connection.getRepository(User);
@@ -44,6 +44,6 @@ async function register(
   } catch (e) {
     throw new Error(e.message);
   }
-}
+};
 
 export default register;

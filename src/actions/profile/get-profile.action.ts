@@ -1,8 +1,5 @@
 import { Request, Response } from "express";
-import { Repository } from "typeorm";
-import { AppDataSource } from "../../data-source";
-import { User } from "../../entity/User";
-import getUser from "../../security/services/User/getUser.service";
+import getProfile from "../../security/services/Profile/get-profile.service";
 /**
  *
  * **ROUTE** auth/profile
@@ -17,7 +14,7 @@ const action = async (req: Request, res: Response): Promise<Response> => {
     // const { _id: id } = req.user;
     const { id } = req.params;
 
-    const data = await getUser(Number(id));
+    const data = await getProfile(Number(id));
 
     return res.status(200).json(data);
   } catch (e) {

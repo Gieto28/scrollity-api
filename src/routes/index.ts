@@ -4,6 +4,7 @@ import authRoutes from "./auth";
 import postsRoutes from "./post";
 import commentsRoutes from "./comment";
 import fileRoutes from "./file";
+import profileRoutes from "./profile";
 
 const routes = Router();
 
@@ -18,5 +19,6 @@ routes.use("/auth", authRoutes);
 routes.use("/post", postsRoutes);
 routes.use("/comment", commentsRoutes);
 routes.use("/file", fileRoutes);
+routes.use("/profile", profileRoutes);
 
 export default routes;

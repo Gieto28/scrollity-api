@@ -23,6 +23,7 @@ const action = async (req: Request, res: Response): Promise<Response> => {
       dateCreated: true,
       dateEdited: true,
     },
+    take: 10,
   });
 
   return res

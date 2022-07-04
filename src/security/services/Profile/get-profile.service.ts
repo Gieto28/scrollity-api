@@ -1,4 +1,3 @@
-import { Request, Response } from "express";
 import { Repository } from "typeorm";
 import { AppDataSource } from "../../../data-source";
 import { User } from "../../../entity/User";
@@ -7,7 +6,7 @@ import { User } from "../../../entity/User";
  * @param id id being retrieved from the front end
  * @returns a user if successful
  */
-async function getUser(id: number): Promise<User> {
+const getProfile = async (id: number): Promise<User> => {
   try {
     const table: Repository<User> =
       AppDataSource.manager.connection.getRepository(User);
@@ -25,6 +24,6 @@ async function getUser(id: number): Promise<User> {
   } catch (e) {
     throw new Error(e.message);
   }
-}
+};
 
-export default getUser;
+export default getProfile;

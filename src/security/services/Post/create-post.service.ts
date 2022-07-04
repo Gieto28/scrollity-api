@@ -12,13 +12,13 @@ import { User } from "../../../entity/User";
  * @param media_id name of the file
  * @returns
  */
-async function createPost(
+const createPost = async (
   user_id: number,
   title: string,
   description: string | null,
   media_id: string | null,
   category: string
-) {
+) => {
   try {
     const manager: EntityManager = AppDataSource.manager;
     const post_table: Repository<Post> = manager.connection.getRepository(Post);
@@ -42,6 +42,6 @@ async function createPost(
     console.log("error here now");
     throw new Error(e.message);
   }
-}
+};
 
 export default createPost;

@@ -1,7 +1,6 @@
 import { Repository } from "typeorm";
 import { AppDataSource } from "../../../data-source";
 import { Post } from "../../../entity/Post";
-import { User } from "../../../entity/User";
 
 /**
  *
@@ -11,12 +10,13 @@ import { User } from "../../../entity/User";
  *
  * **Status 200 returns** - the status 200 and a json with an object with a title and data containing all the users in the db
  */
-async function getAllPosts(category: string) {
+const getAllPosts = async (category: string) => {
   try {
     const table: Repository<Post> =
       AppDataSource.manager.connection.getRepository(Post);
 
     switch (category) {
+      // when TOP is selected it'll return the top posts of all time with the highest up votes
       case "Top":
         const TopPosts: Post[] = await table.find({
           order: {
@@ -32,6 +32,8 @@ async function getAllPosts(category: string) {
           },
         });
         return TopPosts;
+
+      // when NEW is selected it'll return posts from newest to oldest
       case "New":
         const NewPosts: Post[] = await table.find({
           order: {
@@ -46,12 +48,16 @@ async function getAllPosts(category: string) {
           },
         });
         return NewPosts;
+
+      // when Random is selected, it's supposed to return posts randomly without any order whatsoever
       case "Random":
         const RandomPosts: Post[] = await table.find({
           relations: ["user", "comments"],
           take: 10,
         });
         return RandomPosts;
+
+      // default is when category is neither TOP, NEW or RANDOM, but instead they're specific categories, like PET, FUNNY, HELP or OTHER
       default:
         const CategoryPosts: Post[] = await table.find({
           where: { category },
@@ -68,6 +74,6 @@ async function getAllPosts(category: string) {
   } catch (e) {
     throw new Error(e.message);
   }
-}
+};
 
 export default getAllPosts;

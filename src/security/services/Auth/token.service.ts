@@ -6,7 +6,7 @@ import { User } from "../../../entity/User";
  * @param user used to create the token together with an expiration time
  * @returns a token using expiration time, name, email and _id
  */
-async function createToken(user: User): Promise<string> {
+const createToken = async (user: User): Promise<string> => {
   const token: string = sign(
     {
       exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 180,
@@ -17,6 +17,6 @@ async function createToken(user: User): Promise<string> {
     process.env.TYPEORM_SECRET
   );
   return token;
-}
+};
 
 export default createToken;

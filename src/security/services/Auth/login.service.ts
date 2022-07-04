@@ -12,7 +12,7 @@ import createToken from "./token.service";
  * @param password used for authentication
  * @returns a token if successful, otherwise throws an error
  */
-async function login(email: string, password: string): Promise<string> {
+const login = async (email: string, password: string): Promise<string> => {
   const manager: EntityManager = AppDataSource.manager;
   const table: Repository<User> = manager.connection.getRepository(User);
 
@@ -36,6 +36,6 @@ async function login(email: string, password: string): Promise<string> {
   } catch (error) {
     throw new Error(error.message);
   }
-}
+};
 
 export default login;
