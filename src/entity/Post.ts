@@ -40,13 +40,19 @@ export class Post {
   @Column()
   dateCreated: Date;
 
-  @ManyToOne(() => User, (user: User) => user.posts)
+  @ManyToOne(() => User, (user: User) => user.posts, {
+    cascade: true,
+  })
   user: User;
 
-  @OneToMany(() => Comment, (comment: Comment) => comment.post)
+  @OneToMany(() => Comment, (comment: Comment) => comment.post, {
+    cascade: true,
+  })
   comments: Comment[];
 
-  @ManyToMany(() => User)
+  @ManyToMany(() => User, (user: User) => user.likes, {
+    cascade: true,
+  })
   @JoinTable()
   likes: User[];
 }

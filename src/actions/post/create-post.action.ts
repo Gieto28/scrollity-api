@@ -4,7 +4,7 @@ import { createPost } from "../../security";
 const action = async (req: Request, res: Response): Promise<Response> => {
   try {
     const { media_id, user_id, title, description, category, mediaHeight } =
-      await req.body;
+      req.body;
 
     console.log(req.file);
 

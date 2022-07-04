@@ -20,7 +20,7 @@ const getAllPosts = async (category: string) => {
       case "Top":
         const TopPosts: Post[] = await table.find({
           order: {
-            up_votes: "ASC",
+            up_votes: "DESC",
             dateCreated: "DESC",
           },
           take: 10,

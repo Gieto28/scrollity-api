@@ -36,6 +36,9 @@ const createPost = async (
     post.category = category;
     post.dateCreated = new Date();
 
+    console.log(post);
+    console.log(user);
+
     await post_table.save(post);
     return { success: "created post successfully" };
   } catch (e) {
