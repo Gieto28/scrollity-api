@@ -1,12 +1,6 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  OneToMany,
-  ManyToMany,
-  JoinTable,
-} from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
 import { Post } from "./Post";
+import { Post_Likes_User } from "./Post_Likes_User";
 
 @Entity()
 export class User {
@@ -18,10 +12,10 @@ export class User {
   })
   picture: string | null;
 
-  @Column()
+  @Column({ unique: true })
   name: string;
 
-  @Column()
+  @Column({ unique: true })
   email: string;
 
   @Column()
@@ -36,6 +30,12 @@ export class User {
   @OneToMany(() => Post, (post: Post) => post.user)
   posts: Post[];
 
-  @ManyToMany(() => Post, (post: Post) => post.likes)
-  likes: Post[];
+  @OneToMany(
+    () => Post_Likes_User,
+    (post_likes_user: Post_Likes_User) => post_likes_user.user,
+    {
+      cascade: true,
+    }
+  )
+  likes: User[];
 }

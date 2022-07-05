@@ -5,7 +5,7 @@ import { User } from "../../../entity/User";
 
 /**
  *
- * @param user_id creator of the post, string which is turned into a number when saved in the sql table
+ * @param user_id if of the creator of the post
  * @param title title of the post, required
  * @param description description of the post, optional
  * @param category category of the post, optional, default is "Other"
@@ -25,7 +25,7 @@ const createPost = async (
     const user_table: Repository<User> = manager.connection.getRepository(User);
 
     const user: User = await user_table.findOne({
-      where: { _id: Number(user_id) },
+      where: { _id: user_id },
     });
 
     const post: Post = new Post();
@@ -35,9 +35,6 @@ const createPost = async (
     post.description = description ?? null;
     post.category = category;
     post.dateCreated = new Date();
-
-    console.log(post);
-    console.log(user);
 
     await post_table.save(post);
     return { success: "created post successfully" };

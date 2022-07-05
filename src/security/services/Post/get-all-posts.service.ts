@@ -19,18 +19,26 @@ const getAllPosts = async (category: string) => {
       // when TOP is selected it'll return the top posts of all time with the highest up votes
       case "Top":
         const TopPosts: Post[] = await table.find({
+          relations: ["user", "comments", "likes"],
           order: {
             up_votes: "DESC",
             dateCreated: "DESC",
           },
           take: 10,
-          relations: ["user", "comments"],
           select: {
             user: {
               _id: true,
             },
+            likes: true,
           },
         });
+
+        // console.log(TopPosts[0].likes[0].vote);
+        // const likes = TopPosts[0].likes;
+        // Object.values(likes).forEach((key) => {
+        //   console.log(key.vote)
+        // });
+
         return TopPosts;
 
       // when NEW is selected it'll return posts from newest to oldest

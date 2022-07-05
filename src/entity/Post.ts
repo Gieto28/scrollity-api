@@ -2,12 +2,11 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  ManyToMany,
-  JoinTable,
   OneToMany,
   ManyToOne,
 } from "typeorm";
 import { Comment } from "./Comment";
+import { Post_Likes_User } from "./Post_Likes_User";
 import { User } from "./User";
 
 @Entity()
@@ -50,9 +49,12 @@ export class Post {
   })
   comments: Comment[];
 
-  @ManyToMany(() => User, (user: User) => user.likes, {
-    cascade: true,
-  })
-  @JoinTable()
-  likes: User[];
+  @OneToMany(
+    () => Post_Likes_User,
+    (post_likes_user: Post_Likes_User) => post_likes_user.post,
+    {
+      cascade: true,
+    }
+  )
+  likes: Post[];
 }
