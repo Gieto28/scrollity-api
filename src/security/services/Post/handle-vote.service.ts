@@ -30,20 +30,26 @@ const handleVote = async (vote: number, post_id: number, user_id: number) => {
         where: { user: user, post: post },
       });
 
+    // user tries to vote but there's no data in db so we create one
     if (!post_likes_user) {
       const post_likes_table_row = new Post_Likes_User();
 
       post_likes_table_row.post = post;
       post_likes_table_row.user = user;
 
-      vote === 1 ? (post.up_votes += 1) : null;
-      vote === 1 ? console.log("new vote - like") : null;
-      vote === 0 ? (post.down_votes += 1) : null;
-      vote === 0 ? console.log("new vote - not like") : null;
+      // user LIKED the post  and there's no data in mySQL
+      vote === 1
+        ? (post.up_votes += 1) && console.log("new vote - like")
+        : null;
+
+      // user DISLIKED the post  and there's no data in mySQL
+      vote === 0
+        ? (post.down_votes += 1) && console.log("new vote - not like")
+        : null;
 
       post_likes_table_row.vote = vote === 1 ? 1 : 0;
-
       post_likes_table_row.date = new Date();
+
       await manager.save(post_likes_table_row);
       await manager.save(post);
     }
@@ -82,7 +88,7 @@ const handleVote = async (vote: number, post_id: number, user_id: number) => {
       await manager.save(post);
     }
 
-    return { success: "created post successfully" };
+    return { success: "vote saved successfully" };
   } catch (e) {
     console.log("error here now");
     throw new Error(e.message);
@@ -90,41 +96,3 @@ const handleVote = async (vote: number, post_id: number, user_id: number) => {
 };
 
 export default handleVote;
-
-// switch (vote) {
-//   case "up":
-//     // if array is undefined then set it to an empty array first
-//     if (!post.likes) {
-//       post.likes = [];
-//     }
-//     if (!user.likes) {
-//       user.likes = [];
-//     }
-//     console.log("user post likes", post?.likes[0]);
-//     console.log("post likes id", user?.likes[0]?._id);
-//     // check if user liked the post
-//     if (post?.likes[0]?._id) {
-//       // reduce up_votes by one in sql
-//       post.up_votes = post.up_votes - 1;
-//       // filter out the user who liked the post
-//       post.likes = post.likes.filter(
-//         (l) => l._id !== post.likes[0]._id && user.likes.includes(post)
-//       );
-//       await manager.save(post);
-//       return { data: true };
-//     }
-
-//     post.up_votes = post.up_votes + 1;
-//     post.likes.push(user);
-//     await manager.save(post);
-//     console.log("post likes", post.likes);
-//     break;
-
-//   case "down":
-//     post.down_votes = post.down_votes + 1;
-//     await manager.save(post);
-//     break;
-
-//   default:
-//     throw new Error("vote was neither up nor down");
-// }

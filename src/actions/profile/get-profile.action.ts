@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import getProfile from "../../security/services/Profile/get-profile.service";
+import { getProfile } from "../../security";
 /**
  *
  * **ROUTE** auth/profile

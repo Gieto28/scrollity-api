@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import updateProfile from "../../security/services/Auth/update-profile.service";
+import { updateProfile } from "../../security";
 
 /**
  *
