@@ -4,9 +4,10 @@ import { Post, Post_Likes_User, User } from "../../../entity";
 
 /**
  *
+ *
  * @param user_id id of the user that liked this post
  * @param post_id id of the post
- * @param vote which vote the user did, either 1 for like and 0 for not like
+ * @param vote which vote the user did, either 1 for up vote or 0 for down vote
  * @returns
  */
 const handleVote = async (vote: number, post_id: number, user_id: number) => {
@@ -14,7 +15,7 @@ const handleVote = async (vote: number, post_id: number, user_id: number) => {
     const manager: EntityManager = AppDataSource.manager;
     const post_table: Repository<Post> = manager.connection.getRepository(Post);
     const user_table: Repository<User> = manager.connection.getRepository(User);
-    const post_likes_user_table: Repository<Post_Likes_User> =
+    const likes_table: Repository<Post_Likes_User> =
       manager.connection.getRepository(Post_Likes_User);
 
     const post: Post = await post_table.findOne({
@@ -25,10 +26,9 @@ const handleVote = async (vote: number, post_id: number, user_id: number) => {
       where: { _id: user_id },
     });
 
-    const post_likes_user: Post_Likes_User =
-      await post_likes_user_table.findOne({
-        where: { user: user, post: post },
-      });
+    const post_likes_user: Post_Likes_User = await likes_table.findOne({
+      where: { user: user, post: post },
+    });
 
     // user tries to vote but there's no data in db so we create one
     if (!post_likes_user) {
@@ -37,15 +37,9 @@ const handleVote = async (vote: number, post_id: number, user_id: number) => {
       post_likes_table_row.post = post;
       post_likes_table_row.user = user;
 
-      // user LIKED the post  and there's no data in mySQL
-      vote === 1
-        ? (post.up_votes += 1) && console.log("new vote - like")
-        : null;
+      vote === 1 ? (post.up_votes += 1) : null;
 
-      // user DISLIKED the post  and there's no data in mySQL
-      vote === 0
-        ? (post.down_votes += 1) && console.log("new vote - not like")
-        : null;
+      vote === 0 ? (post.down_votes += 1) : null;
 
       post_likes_table_row.vote = vote === 1 ? 1 : 0;
       post_likes_table_row.date = new Date();
@@ -54,15 +48,13 @@ const handleVote = async (vote: number, post_id: number, user_id: number) => {
       await manager.save(post);
     }
 
-    // if user has voted and tries to vote then this happens
+    // if user already voted and tries to vote then this happens
     if (post_likes_user && vote === 1) {
       if (post_likes_user.vote === 1) {
-        console.log("one up  ");
         post.up_votes -= 1;
-        await post_likes_user_table.delete(post_likes_user);
+        await likes_table.delete(post_likes_user);
       }
       if (post_likes_user.vote === 0) {
-        console.log("one down ");
         post_likes_user.vote = 1;
         post.down_votes -= 1;
         post.up_votes += 1;
@@ -71,15 +63,13 @@ const handleVote = async (vote: number, post_id: number, user_id: number) => {
       await manager.save(post);
     }
 
-    // if user already voted and tries to down vote then this happens
+    // if user already voted and tries to vote then this happens
     if (post_likes_user && vote === 0) {
       if (post_likes_user.vote === 0) {
-        console.log("zero down ");
         post.down_votes -= 1;
-        await post_likes_user_table.delete(post_likes_user);
+        await likes_table.delete(post_likes_user);
       }
       if (post_likes_user.vote === 1) {
-        console.log("zero up ");
         post_likes_user.vote = 0;
         post.up_votes -= 1;
         post.down_votes += 1;

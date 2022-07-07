@@ -4,8 +4,8 @@ import {
   handleVoteAction,
   getPostAction,
   getAllPostsAction,
+  checkVotes,
 } from "../actions/post";
-import { checkVote } from "../actions/post";
 
 const routes = Router();
 
@@ -16,6 +16,6 @@ routes.post("/create", createPostsAction);
 
 routes.post("/vote", handleVoteAction);
 
-routes.get("/checkVote/:post_id/:user_id", checkVote);
+routes.get("/checkVote/:post_id/:user_id", checkVotes);
 
 export default routes;

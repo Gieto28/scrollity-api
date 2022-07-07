@@ -7,8 +7,8 @@ import { Post, Post_Likes_User, User } from "../../../entity";
  * @returns a post if successful
  */
 const getUserVote = async (post_id: number, user_id: number) => {
-  const manager = AppDataSource.manager;
   try {
+    const manager = AppDataSource.manager;
     const likes_table = manager.connection.getRepository(Post_Likes_User);
     const post_table = manager.connection.getRepository(Post);
     const user_table = manager.connection.getRepository(User);
@@ -23,9 +23,6 @@ const getUserVote = async (post_id: number, user_id: number) => {
 
     const votes = await likes_table.findOne({
       where: { user: user, post: post },
-      select: {
-        vote: true,
-      },
     });
 
     return votes;
