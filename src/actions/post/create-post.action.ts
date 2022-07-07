@@ -1,11 +1,12 @@
 import { Request, Response } from "express";
+import { SuccessResponse } from "../../models";
 import { createPost } from "../../security";
 
 const action = async (req: Request, res: Response): Promise<Response> => {
   try {
     const { media_id, user_id, title, description, category } = req.body;
 
-    const data = await createPost(
+    const data: SuccessResponse = await createPost(
       Number(user_id),
       title,
       description,
