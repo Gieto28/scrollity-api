@@ -6,7 +6,7 @@ const action = async (req: Request, res: Response) => {
 
   const data = await handleVote(vote, post_id, user_id);
 
-  return res.json(data);
+  return res.json({ data });
 };
 
 export default action;

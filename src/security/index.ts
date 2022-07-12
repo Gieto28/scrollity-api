@@ -14,6 +14,11 @@ import getUserVote from "./services/Post/get-user-vote.service";
 // Profile
 import getProfile from "./services/Profile/get-profile.service";
 
+//comment
+import createComment from "./services/Comment/create-comment.service";
+import getAllComments from "./services/Comment/get-all-comments.service";
+import handleCommentVote from "./services/Comment/handle-comment-vote.service";
+
 export {
   // Auth
   login,
@@ -28,4 +33,8 @@ export {
   getUserVote,
   // Profile
   getProfile,
+  //comment
+  createComment,
+  getAllComments,
+  handleCommentVote,
 };

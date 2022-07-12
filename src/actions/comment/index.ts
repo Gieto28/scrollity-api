@@ -1,13 +1,13 @@
-import getCommentAction from "./get-comment.Action";
-import createCommentAction from "./create-comment.Action";
-import upVoteCommentAction from "./up-vote-comment.Action";
-import downVoteCommentAction from "./down-vote-comment.Action";
-import getPostCommentsAction from "./get-post-comments.Action";
+import getCommentAction from "./get-comment.action";
+import createCommentAction from "./create-comment.action";
+import getAllCommentsAction from "./get-all-comments.action";
+import checkCommentVotesAction from "./check-comment-votes.action";
+import handleCommentVoteAction from "./handle-comment-vote.action";
 
 export {
-  getPostCommentsAction,
+  checkCommentVotesAction,
+  getAllCommentsAction,
   getCommentAction,
   createCommentAction,
-  upVoteCommentAction,
-  downVoteCommentAction,
+  handleCommentVoteAction,
 };

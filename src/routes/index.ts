@@ -6,7 +6,7 @@ import commentsRoutes from "./comment";
 import fileRoutes from "./file";
 import profileRoutes from "./profile";
 
-const routes = Router();
+const routes: Router = Router();
 
 routes.get("/", async (_, res: Response) =>
   res.json({

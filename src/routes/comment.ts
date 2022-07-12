@@ -1,20 +1,17 @@
 import { Router } from "express";
 import {
   createCommentAction,
-  downVoteCommentAction,
   getCommentAction,
-  getPostCommentsAction,
-  upVoteCommentAction,
+  getAllCommentsAction,
+  checkCommentVotesAction,
 } from "../actions/comment";
 
-const routes = Router();
+const routes: Router = Router();
 
 routes.get("/:id", getCommentAction);
-routes.get("/post/:id", getPostCommentsAction);
+routes.get("/all", getAllCommentsAction);
 
 routes.post("/create", createCommentAction);
 
-routes.post("/upVote/:id/:userId", upVoteCommentAction);
-routes.post("/downVote/:id/:userId", downVoteCommentAction);
-
+routes.post("/checkVote/:comment_id/:user_id", checkCommentVotesAction);
 export default routes;

@@ -4,7 +4,6 @@ import { Post } from "../../../entity/Post";
 
 /**
  *
- * **ROUTE** auth/profiles
  *
  * @returns either status 200 (OK) **OR** status 400 (Bad Request)
  *
@@ -32,13 +31,6 @@ const getAllPosts = async (category: string) => {
             likes: true,
           },
         });
-
-        // console.log(TopPosts[0].likes[0].vote);
-        // const likes = TopPosts[0].likes;
-        // Object.values(likes).forEach((key) => {
-        //   console.log(key.vote)
-        // });
-
         return TopPosts;
 
       // when NEW is selected it'll return posts from newest to oldest

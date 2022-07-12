@@ -5,7 +5,7 @@ import { User } from "../../../entity/User";
 
 /**
  *
- * @param user_id if of the creator of the post
+ * @param user_id id of the creator of the post
  * @param title title of the post, required
  * @param description description of the post, optional
  * @param category category of the post, optional, default is "Other"
@@ -39,7 +39,6 @@ const createPost = async (
     await post_table.save(post);
     return { success: "created post successfully" };
   } catch (e) {
-    console.log("error here now");
     throw new Error(e.message);
   }
 };
