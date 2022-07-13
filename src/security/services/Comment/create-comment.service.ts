@@ -30,6 +30,9 @@ const createComment = async (
     const post: Post = await post_table.findOne({
       where: { _id: post_id },
     });
+    console.log(user);
+    console.log(post);
+    console.log(comment);
 
     const new_comment: Comment = new Comment();
     new_comment.user = user;
@@ -38,6 +41,7 @@ const createComment = async (
     new_comment.dateCreated = new Date();
 
     await comment_table.save(new_comment);
+    console.log("success");
     return { success: "created comment successfully" };
   } catch (e) {
     throw new Error(e.message);

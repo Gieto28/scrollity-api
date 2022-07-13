@@ -9,7 +9,7 @@ import {
 const routes: Router = Router();
 
 routes.get("/:id", getCommentAction);
-routes.get("/all", getAllCommentsAction);
+routes.get("/all/:post_id", getAllCommentsAction);
 
 routes.post("/create", createCommentAction);
 

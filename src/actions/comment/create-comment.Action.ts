@@ -4,12 +4,12 @@ import { createComment } from "../../security";
 
 const action = async (req: Request, res: Response): Promise<Response> => {
   try {
-    const { comment, user_id, post_id } = req.body;
+    const { user_id, comment, post_id } = req.body;
 
     const data: SuccessResponse = await createComment(
-      comment,
       user_id,
-      post_id
+      post_id,
+      comment
     );
 
     return res.status(201).json({ data });

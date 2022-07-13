@@ -1,28 +1,43 @@
 import { Repository } from "typeorm";
 import { AppDataSource } from "../../../data-source";
-import { Comment } from "../../../entity";
+import { Comment, Post } from "../../../entity";
 
 /**
  *
+ * @post_id id of the post which I want comments from
  *
  * @returns either status 200 (OK) **OR** status 400 (Bad Request)
- *
- * **Status 200 returns** - the status 200 and a json with an object with a title and data containing all the users in the db
  */
-const getAllComments = async () => {
+const getAllComments = async (post_id: string) => {
   try {
-    const table: Repository<Comment> =
+    const comment_table: Repository<Comment> =
       AppDataSource.manager.connection.getRepository(Comment);
 
-    const Comments: Comment[] = await table.find({
-      relations: ["user", "post"],
+    const post_table: Repository<Post> =
+      AppDataSource.manager.connection.getRepository(Post);
+
+    const post = await post_table.findOne({ where: { _id: Number(post_id) } });
+    // console.log(comment_table);
+
+    const comments: Comment[] = await comment_table.find({
+      relations: ["user"],
+      where: {
+        post: post,
+      },
       order: {
         up_votes: "DESC",
         dateCreated: "DESC",
       },
+      select: {
+        user: {
+          _id: true,
+          name: true,
+          picture: true,
+        },
+      },
     });
 
-    return Comments;
+    return comments;
   } catch (e) {
     throw new Error(e.message);
   }

@@ -5,7 +5,9 @@ import { getAllComments } from "../../security";
 
 const action = async (req: Request, res: Response) => {
   try {
-    const data: Comment[] = await getAllComments();
+    const { post_id } = req.params;
+
+    const data: Comment[] = await getAllComments(post_id);
 
     return res.status(200).json({ data });
   } catch (e) {

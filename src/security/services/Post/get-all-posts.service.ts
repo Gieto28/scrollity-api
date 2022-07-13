@@ -6,10 +6,8 @@ import { Post } from "../../../entity/Post";
  *
  *
  * @returns either status 200 (OK) **OR** status 400 (Bad Request)
- *
- * **Status 200 returns** - the status 200 and a json with an object with a title and data containing all the users in the db
  */
-const getAllPosts = async (category: string) => {
+const getAllPosts = async (category: string): Promise<Post[]> => {
   try {
     const table: Repository<Post> =
       AppDataSource.manager.connection.getRepository(Post);
