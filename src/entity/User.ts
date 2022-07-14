@@ -42,7 +42,7 @@ export class User {
       cascade: true,
     }
   )
-  likes: User[];
+  likes: Post[];
 
   @OneToMany(
     () => Comment_Likes_User,

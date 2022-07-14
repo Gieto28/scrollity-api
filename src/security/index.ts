@@ -2,7 +2,6 @@
 import login from "./services/Auth/login.service";
 import register from "./services/Auth/register.service";
 import token from "./services/Auth/token.service";
-import updateProfile from "./services/Profile/update-profile.service";
 
 // post
 import getPost from "./services/Post/get-post.service";
@@ -13,6 +12,8 @@ import getUserVote from "./services/Post/get-user-vote.service";
 
 // Profile
 import getProfile from "./services/Profile/get-profile.service";
+import getUserPosts from "./services/Profile/get-user-posts.service";
+import updateProfile from "./services/Profile/update-profile.service";
 
 //comment
 import createComment from "./services/Comment/create-comment.service";
@@ -26,7 +27,6 @@ export {
   login,
   register,
   token,
-  updateProfile,
   //Post
   createPost,
   handleVote,
@@ -35,6 +35,8 @@ export {
   getUserVote,
   // Profile
   getProfile,
+  getUserPosts,
+  updateProfile,
   //comment
   createComment,
   handleCommentVote,

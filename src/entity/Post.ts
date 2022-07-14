@@ -56,5 +56,5 @@ export class Post {
       cascade: true,
     }
   )
-  likes: Post[];
+  likes: User[];
 }
