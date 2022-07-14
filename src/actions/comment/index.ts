@@ -5,9 +5,9 @@ import checkCommentVotesAction from "./check-comment-votes.action";
 import handleCommentVoteAction from "./handle-comment-vote.action";
 
 export {
-  checkCommentVotesAction,
   getAllCommentsAction,
-  getCommentAction,
   createCommentAction,
   handleCommentVoteAction,
+  getCommentAction,
+  checkCommentVotesAction,
 };

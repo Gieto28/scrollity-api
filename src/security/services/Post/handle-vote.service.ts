@@ -80,7 +80,6 @@ const handleVote = async (vote: number, post_id: number, user_id: number) => {
 
     return { success: "vote saved successfully" };
   } catch (e) {
-    console.log("error here now");
     throw new Error(e.message);
   }
 };

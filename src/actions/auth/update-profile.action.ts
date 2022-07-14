@@ -12,10 +12,7 @@ import { updateProfile } from "../../security";
  */
 const action = async (req: Request, res: Response): Promise<Response> => {
   try {
-    console.log(req);
-
     const { _id: id } = req.user;
-    console.log(id);
 
     const { name, password, passwordConfirmation } = req.body;
 

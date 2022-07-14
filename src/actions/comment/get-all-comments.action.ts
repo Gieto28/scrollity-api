@@ -11,9 +11,6 @@ const action = async (req: Request, res: Response) => {
 
     return res.status(200).json({ data });
   } catch (e) {
-    console.log(
-      "error when calling get all posts on file get all posts action"
-    );
     throw new Error(e.message);
   }
 };

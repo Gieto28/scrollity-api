@@ -16,8 +16,6 @@ const login = async (email: string, password: string): Promise<string> => {
   const manager: EntityManager = AppDataSource.manager;
   const table: Repository<User> = manager.connection.getRepository(User);
 
-  console.log("login", email, password);
-
   try {
     const user: User = await table.findOne({
       where: { email },

@@ -1,7 +1,6 @@
 import { EntityManager, Repository } from "typeorm";
 import { AppDataSource } from "../../../data-source";
-import { Comment, Post_Likes_User, User } from "../../../entity";
-import { Comment_Likes_User } from "../../../entity/Comment_Likes_User";
+import { Comment, Comment_Likes_User, User } from "../../../entity";
 
 /**
  *

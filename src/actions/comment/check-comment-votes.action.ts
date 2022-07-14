@@ -1,14 +1,14 @@
 import { Request, Response } from "express";
-import { Post_Likes_User } from "../../entity";
-import { getUserVote } from "../../security";
+import { Comment_Likes_User, Post_Likes_User } from "../../entity";
+import { getUserCommentVote } from "../../security";
 
 const action = async (req: Request, res: Response): Promise<Response> => {
   try {
     // const { _id: id } = req.user;
-    const { post_id, user_id } = req.params;
+    const { comment_id, user_id } = req.params;
 
-    const data: Post_Likes_User = await getUserVote(
-      Number(post_id),
+    const data: Comment_Likes_User = await getUserCommentVote(
+      Number(comment_id),
       Number(user_id)
     );
 

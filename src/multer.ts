@@ -1,6 +1,5 @@
 import express from "express";
 import multer from "multer";
-import { v4 as uuid } from "uuid";
 
 const multerConfig: multer.StorageEngine = multer.diskStorage({
   destination: (
@@ -13,9 +12,7 @@ const multerConfig: multer.StorageEngine = multer.diskStorage({
 
     if (file.path === null) {
       return;
-      console.log("this is reaching here");
     }
-    console.log("this is reaching there");
 
     // if the file being uploaded comes from the create posts screen, it'll have posts as it's first characters
     if (file.originalname.split(".")[0] === "post") {
@@ -42,7 +39,6 @@ const multerConfig: multer.StorageEngine = multer.diskStorage({
     file: Express.Multer.File,
     callback: (arg0: null, arg1: string) => void
   ) => {
-    console.log(file);
     callback(null, file.originalname);
   },
 });

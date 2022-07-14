@@ -17,7 +17,6 @@ const getAllComments = async (post_id: string) => {
       AppDataSource.manager.connection.getRepository(Post);
 
     const post = await post_table.findOne({ where: { _id: Number(post_id) } });
-    // console.log(comment_table);
 
     const comments: Comment[] = await comment_table.find({
       relations: ["user"],
