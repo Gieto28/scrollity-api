@@ -51,10 +51,7 @@ export class Post {
 
   @OneToMany(
     () => Post_Likes_User,
-    (post_likes_user: Post_Likes_User) => post_likes_user.post,
-    {
-      cascade: true,
-    }
+    (post_likes_user: Post_Likes_User) => post_likes_user.user
   )
   likes: User[];
 }

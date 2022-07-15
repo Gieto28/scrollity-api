@@ -40,13 +40,6 @@ const verifyToken = (
         });
       }
 
-      const { _id: id } = payload;
-      const connection = AppDataSource.manager.connection;
-      const table = connection.getRepository(User);
-      const user = await table.findOne({ where: { _id: id } });
-
-      req.user = user;
-
       next();
     }
   );

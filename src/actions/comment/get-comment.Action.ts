@@ -3,7 +3,6 @@ import { getComment } from "../../security";
 
 const action = async (req: Request, res: Response) => {
   try {
-    // const { _id: id } = req.user;
     const { id } = req.params;
 
     const data = await getComment(Number(id));

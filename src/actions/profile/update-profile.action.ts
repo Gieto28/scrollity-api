@@ -12,15 +12,13 @@ import { updateProfile } from "../../security";
  */
 const action = async (req: Request, res: Response): Promise<Response> => {
   try {
-    const { _id: id } = req.user;
-
-    const { name, password, passwordConfirmation } = req.body;
+    const { user_id, name, password, passwordConfirmation } = req.body;
 
     if (password !== passwordConfirmation) {
       throw new Error("password doesn't match");
     }
 
-    const token: string = await updateProfile(Number(id), name, password);
+    const token: string = await updateProfile(user_id, name, password);
 
     return res.status(200).json({ token });
   } catch (e) {

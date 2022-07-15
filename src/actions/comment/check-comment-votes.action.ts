@@ -4,7 +4,6 @@ import { getUserCommentVote } from "../../security";
 
 const action = async (req: Request, res: Response): Promise<Response> => {
   try {
-    // const { _id: id } = req.user;
     const { comment_id, user_id } = req.params;
 
     const data: Comment_Likes_User = await getUserCommentVote(

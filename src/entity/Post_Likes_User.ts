@@ -14,10 +14,16 @@ export class Post_Likes_User {
   @PrimaryGeneratedColumn()
   _id: number;
 
-  @ManyToOne(() => User, (user: User) => user.likes)
+  @ManyToOne(() => User, (user: User) => user.likes, {
+    cascade: true,
+    onUpdate: "CASCADE",
+  })
   user: User;
 
-  @ManyToOne(() => Post, (post: Post) => post.likes)
+  @ManyToOne(() => Post, (post: Post) => post.likes, {
+    cascade: true,
+    onUpdate: "CASCADE",
+  })
   post: Post;
 
   @Column({ default: 0 })

@@ -1,4 +1,4 @@
-import { Repository } from "typeorm";
+import { FindRelationsNotFoundError, Repository } from "typeorm";
 import { AppDataSource } from "../../../data-source";
 import { Post, Post_Likes_User, User } from "../../../entity";
 /**
@@ -20,8 +20,12 @@ const getUserPosts = async (
     const post_likes_user: Repository<Post_Likes_User> =
       AppDataSource.manager.connection.getRepository(Post_Likes_User);
 
+    const user: User = await user_table.findOne({
+      where: { _id: user_id },
+    });
+
     if (option === "posts") {
-      const user: User[] = await user_table.find({
+      const posts: User[] = await user_table.find({
         relations: ["posts"],
         where: { _id: user_id },
         select: {
@@ -30,22 +34,22 @@ const getUserPosts = async (
         },
       });
 
-      return user;
+      return posts;
     }
 
     if (option === "likes") {
-      const user: User[] = await user_table.find({
-        relations: ["likes"],
-        where: { _id: user_id },
-        select: {
-          _id: true,
-          likes: true,
-        },
+      const likes: Post_Likes_User[] = await post_likes_user.find({
+        relations: ["post"],
+        where: { user: user, vote: 1 },
       });
 
-      console.log(user);
+      let liked_posts: any = [[{ likes: true }], []];
 
-      return user;
+      likes.map((l) => {
+        liked_posts[1].push(l.post);
+      });
+
+      return liked_posts;
     }
   } catch (e) {
     throw new Error(e.message);

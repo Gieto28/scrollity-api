@@ -6,10 +6,7 @@ import { getUserPosts } from "../../security";
 const action = async (req: Request, res: Response) => {
   try {
     const { user_id, option } = req.params;
-    const data: Post[] | Post_Likes_User[] = await getUserPosts(
-      Number(user_id),
-      option
-    );
+    const data: any = await getUserPosts(Number(user_id), option);
 
     return res.status(200).json({ data });
   } catch (e) {
