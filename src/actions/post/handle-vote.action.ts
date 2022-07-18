@@ -8,9 +8,12 @@ const action = async (req: Request, res: Response) => {
     const data = await handleVote(vote, post_id, user_id);
 
     return res.json({ data });
-  } catch (error) {
-    console.log("error");
-    throw new Error(error.message);
+  } catch (e) {
+    return res.status(400).json({
+      code: 404,
+      error: "Error when saving/updating post votes",
+      message: e.message,
+    });
   }
 };
 

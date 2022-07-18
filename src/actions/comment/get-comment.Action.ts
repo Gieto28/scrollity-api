@@ -11,7 +11,7 @@ const action = async (req: Request, res: Response) => {
   } catch (e) {
     return res.status(404).json({
       code: 404,
-      error: "Post not found",
+      error: "comment not found",
       message: e.message,
     });
   }

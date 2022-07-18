@@ -16,9 +16,9 @@ const verifyToken = (
     return next();
   }
 
-  const authHeader = req.headers.authorization;
+  const authHeader: string = req.headers.authorization;
 
-  const token = authHeader && authHeader.split(" ")[1];
+  const token: string = authHeader && authHeader.split(" ")[1];
 
   if (token == null) {
     return res.status(401).json({

@@ -9,7 +9,11 @@ const action = async (req: Request, res: Response) => {
 
     return res.status(200).json({ data });
   } catch (e) {
-    throw new Error(e.message);
+    return res.status(400).json({
+      code: 404,
+      error: "Posts not found",
+      message: e.message,
+    });
   }
 };
 

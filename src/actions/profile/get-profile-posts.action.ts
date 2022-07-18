@@ -8,9 +8,13 @@ const action = async (req: Request, res: Response) => {
     const { user_id, option } = req.params;
     const data: any = await getUserPosts(Number(user_id), option);
 
-    return res.status(200).json({ data });
+    return res.status(200).json(data);
   } catch (e) {
-    throw new Error(e.message);
+    return res.status(400).json({
+      code: 404,
+      error: "Error when fetching posts for profile posts",
+      message: e.message,
+    });
   }
 };
 

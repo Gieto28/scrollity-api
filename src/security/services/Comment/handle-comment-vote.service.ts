@@ -1,6 +1,7 @@
 import { EntityManager, Repository } from "typeorm";
 import { AppDataSource } from "../../../data-source";
 import { Comment, Comment_Likes_User, User } from "../../../entity";
+import { SuccessResponse } from "../../../models";
 
 /**
  *
@@ -14,7 +15,7 @@ const handleCommentVote = async (
   vote: number,
   comment_id: number,
   user_id: number
-) => {
+): Promise<SuccessResponse> => {
   try {
     const manager: EntityManager = AppDataSource.manager;
     const comment_table: Repository<Comment> =
@@ -38,7 +39,8 @@ const handleCommentVote = async (
 
     // user tries to vote but there's no data in db so we create one
     if (!comment_likes_user) {
-      const comment_likes_table_row = new Comment_Likes_User();
+      const comment_likes_table_row: Comment_Likes_User =
+        new Comment_Likes_User();
 
       comment_likes_table_row.comment = comment;
       comment_likes_table_row.user = user;

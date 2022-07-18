@@ -16,10 +16,6 @@ const getProfile = async (id: number): Promise<User> => {
       select: ["_id", "picture", "name", "email", "dateCreated", "dateEdited"],
     });
 
-    if (profile._id !== Number(id)) {
-      throw new Error("user id in request does not match user id in profile");
-    }
-
     return profile;
   } catch (e) {
     throw new Error(e.message);

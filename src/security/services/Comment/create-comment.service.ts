@@ -3,6 +3,7 @@ import { AppDataSource } from "../../../data-source";
 import { Comment } from "../../../entity";
 import { Post } from "../../../entity/Post";
 import { User } from "../../../entity/User";
+import { SuccessResponse } from "../../../models";
 
 /**
  *
@@ -15,7 +16,7 @@ const createComment = async (
   user_id: number,
   post_id: number,
   comment: string
-) => {
+): Promise<SuccessResponse> => {
   try {
     const manager: EntityManager = AppDataSource.manager;
     const post_table: Repository<Post> = manager.connection.getRepository(Post);

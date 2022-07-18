@@ -11,9 +11,6 @@ const getUserPosts = async (
   option: string
 ): Promise<Post[] | Post_Likes_User[] | any> => {
   try {
-    const table: Repository<Post> =
-      AppDataSource.manager.connection.getRepository(Post);
-
     const user_table: Repository<User> =
       AppDataSource.manager.connection.getRepository(User);
 
@@ -43,10 +40,10 @@ const getUserPosts = async (
         where: { user: user, vote: 1 },
       });
 
-      let liked_posts: any = [[{ likes: true }], []];
+      let liked_posts: any = [];
 
       likes.map((l) => {
-        liked_posts[1].push(l.post);
+        liked_posts.push(l.post);
       });
 
       return liked_posts;

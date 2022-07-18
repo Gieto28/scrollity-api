@@ -32,7 +32,7 @@ const handleVote = async (vote: number, post_id: number, user_id: number) => {
 
     // user tries to vote but there's no data in db so we create one
     if (!post_likes_user) {
-      const post_likes_table_row = new Post_Likes_User();
+      const post_likes_table_row: Post_Likes_User = new Post_Likes_User();
 
       post_likes_table_row.post = post;
       post_likes_table_row.user = user;

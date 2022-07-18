@@ -15,8 +15,12 @@ const action = async (req: Request, res: Response): Promise<Response> => {
     );
 
     return res.status(201).json({ data });
-  } catch (error) {
-    throw new Error(error.message);
+  } catch (e) {
+    return res.status(400).json({
+      code: 400,
+      error: "Error when creating post",
+      message: e.message,
+    });
   }
 };
 

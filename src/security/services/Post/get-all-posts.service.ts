@@ -1,4 +1,5 @@
-import { Repository } from "typeorm";
+import { createQuery } from "mysql2/typings/mysql/lib/Connection";
+import { createQueryBuilder, DataSource, Repository } from "typeorm";
 import { AppDataSource } from "../../../data-source";
 import { Post } from "../../../entity/Post";
 
@@ -49,6 +50,10 @@ const getAllPosts = async (category: string): Promise<Post[]> => {
 
       // when Random is selected, it's supposed to return posts randomly without any order whatsoever
       case "Random":
+        // const RandomPosts = await createQueryBuilder(Post, "Post")
+        //   .orderBy("RAND()")
+        //   .limit(10)
+        //   .getMany();
         const RandomPosts: Post[] = await table.find({
           relations: ["user", "comments"],
           take: 10,

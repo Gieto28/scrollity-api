@@ -1,10 +1,10 @@
-import express from "express";
+import express, { Express } from "express";
 import cors from "cors";
 import routes from "./routes/index";
 import { verifyToken } from "./security/middleware/token.middleware";
 import path from "path";
 
-const app = express();
+const app: Express = express();
 
 app.use("/public", express.static(path.join(__dirname, "..", "public")));
 

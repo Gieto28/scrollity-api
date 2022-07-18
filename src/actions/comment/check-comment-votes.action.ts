@@ -15,7 +15,7 @@ const action = async (req: Request, res: Response): Promise<Response> => {
   } catch (e) {
     return res.status(404).json({
       code: 404,
-      error: "Post not found",
+      error: "Was not able to return comment vote",
       message: e.message,
     });
   }

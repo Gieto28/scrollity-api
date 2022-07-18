@@ -2,6 +2,7 @@ import { EntityManager, Repository } from "typeorm";
 import { AppDataSource } from "../../../data-source";
 import { Post } from "../../../entity/Post";
 import { User } from "../../../entity/User";
+import { SuccessResponse } from "../../../models";
 
 /**
  *
@@ -18,7 +19,7 @@ const createPost = async (
   description: string | null,
   media_id: string | null,
   category: string
-) => {
+): Promise<SuccessResponse> => {
   try {
     const manager: EntityManager = AppDataSource.manager;
     const post_table: Repository<Post> = manager.connection.getRepository(Post);

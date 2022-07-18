@@ -8,7 +8,7 @@ import { Comment, Post } from "../../../entity";
  *
  * @returns either status 200 (OK) **OR** status 400 (Bad Request)
  */
-const getAllComments = async (post_id: string) => {
+const getAllComments = async (post_id: string): Promise<Comment[]> => {
   try {
     const comment_table: Repository<Comment> =
       AppDataSource.manager.connection.getRepository(Comment);
@@ -16,7 +16,9 @@ const getAllComments = async (post_id: string) => {
     const post_table: Repository<Post> =
       AppDataSource.manager.connection.getRepository(Post);
 
-    const post = await post_table.findOne({ where: { _id: Number(post_id) } });
+    const post: Post = await post_table.findOne({
+      where: { _id: Number(post_id) },
+    });
 
     const comments: Comment[] = await comment_table.find({
       relations: ["user"],

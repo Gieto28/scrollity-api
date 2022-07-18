@@ -24,7 +24,7 @@ const updateProfile = async (
       where: { _id },
     });
 
-    const checkIfNameExists: User | undefined = await table.findOne({
+    const checkIfNameExists: User = await table.findOne({
       where: { name },
     });
 
