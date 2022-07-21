@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
 import { Comment } from "./Comment";
 import { Comment_Likes_User } from "./Comment_Likes_User";
+import { Notification } from "./Notification";
 import { Post } from "./Post";
 import { Post_Likes_User } from "./Post_Likes_User";
 
@@ -49,4 +50,10 @@ export class User {
     }
   )
   comment_likes: User[];
+
+  @OneToMany(
+    () => Notification,
+    (notification: Notification) => notification.user
+  )
+  notifications: Notification[];
 }

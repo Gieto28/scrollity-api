@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { login } from "../../security";
+import { login } from "../../services";
 
 /**
  *
@@ -13,7 +13,6 @@ import { login } from "../../security";
 const action = async (req: Request, res: Response): Promise<Response> => {
   try {
     const { email, password } = req.body;
-    console.log("logging...");
 
     const token: string = await login(email, password);
 

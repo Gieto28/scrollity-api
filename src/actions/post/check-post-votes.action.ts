@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { Post_Likes_User } from "../../entity";
-import { getUserVote } from "../../security";
+import { getUserVote } from "../../services";
 
 const action = async (req: Request, res: Response): Promise<Response> => {
   try {

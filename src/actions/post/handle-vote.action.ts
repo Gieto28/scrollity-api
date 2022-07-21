@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { handleVote } from "../../security";
+import { handleVote } from "../../services";
 
 const action = async (req: Request, res: Response) => {
   try {

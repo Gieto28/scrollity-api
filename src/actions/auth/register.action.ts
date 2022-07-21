@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { register } from "../../security";
+import { register } from "../../services";
 
 /**
  *

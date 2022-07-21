@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { Post } from "../../entity/Post";
-import { getAllPosts } from "../../security";
+import { getAllPosts } from "../../services";
 
 const action = async (req: Request, res: Response) => {
   try {

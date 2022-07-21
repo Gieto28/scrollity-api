@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { updateProfile } from "../../security";
+import { updateProfile } from "../../services";
 
 /**
  *

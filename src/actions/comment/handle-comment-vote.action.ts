@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { handleCommentVote } from "../../security";
+import { handleCommentVote } from "../../services";
 
 const action = async (req: Request, res: Response) => {
   const { vote, comment_id, user_id } = req.body;

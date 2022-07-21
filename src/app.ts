@@ -1,7 +1,7 @@
 import express, { Express } from "express";
 import cors from "cors";
-import routes from "./routes/index";
-import { verifyToken } from "./security/middleware/token.middleware";
+import routes from "./routes";
+import { verifyToken } from "./security/token.middleware";
 import path from "path";
 
 const app: Express = express();

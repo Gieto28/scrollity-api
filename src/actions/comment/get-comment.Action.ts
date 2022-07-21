@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getComment } from "../../security";
+import { getComment } from "../../services";
 
 const action = async (req: Request, res: Response) => {
   try {

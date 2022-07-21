@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { Post_Likes_User } from "../../entity";
 import { Post } from "../../entity/Post";
-import { getUserPosts } from "../../security";
+import { getUserPosts } from "../../services";
 
 const action = async (req: Request, res: Response) => {
   try {

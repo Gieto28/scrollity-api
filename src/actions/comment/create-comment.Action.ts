@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { SuccessResponse } from "../../models";
-import { createComment } from "../../security";
+import { createComment } from "../../services";
 
 const action = async (req: Request, res: Response): Promise<Response> => {
   try {

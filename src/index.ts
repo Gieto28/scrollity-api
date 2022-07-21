@@ -2,7 +2,7 @@ require("dotenv").config();
 import { AppDataSource } from "./data-source";
 import app from "./app";
 
-const PORT = process.env.TYPEORM_PORT || 3003;
+export const PORT = process.env.TYPEORM_PORT || 3003;
 
 AppDataSource.initialize()
   .then(async () => {

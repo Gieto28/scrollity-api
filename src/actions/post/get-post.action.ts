@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getPost } from "../../security";
+import { getPost } from "../../services";
 
 const action = async (req: Request, res: Response) => {
   try {
