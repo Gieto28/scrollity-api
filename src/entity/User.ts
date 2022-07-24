@@ -1,4 +1,9 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import { Comment } from "./Comment";
+import { Comment_Likes_User } from "./Comment_Likes_User";
+import { Notification } from "./Notification";
+import { Post } from "./Post";
+import { Post_Likes_User } from "./Post_Likes_User";
 
 @Entity()
 export class User {
@@ -10,10 +15,10 @@ export class User {
   })
   picture: string | null;
 
-  @Column()
+  @Column({ unique: true })
   name: string;
 
-  @Column()
+  @Column({ unique: true })
   email: string;
 
   @Column()
@@ -24,5 +29,31 @@ export class User {
 
   @Column()
   dateEdited: Date;
-  id: any;
+
+  @OneToMany(() => Post, (post: Post) => post.user)
+  posts: Post[];
+
+  @OneToMany(() => Comment, (comment: Comment) => comment.user)
+  comments: Comment[];
+
+  @OneToMany(
+    () => Post_Likes_User,
+    (post_likes_user: Post_Likes_User) => post_likes_user.post
+  )
+  likes: Post[];
+
+  @OneToMany(
+    () => Comment_Likes_User,
+    (comment_likes_user: Comment_Likes_User) => comment_likes_user.user,
+    {
+      cascade: true,
+    }
+  )
+  comment_likes: User[];
+
+  @OneToMany(
+    () => Notification,
+    (notification: Notification) => notification.user
+  )
+  notifications: Notification[];
 }

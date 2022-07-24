@@ -1,5 +1,13 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  OneToMany,
+} from "typeorm";
+import { Comment_Likes_User } from "./Comment_Likes_User";
 import { Post } from "./Post";
+import { User } from "./User";
 
 @Entity()
 export class Comment {
@@ -7,20 +15,29 @@ export class Comment {
   _id: number;
 
   @Column()
-  user_id: number;
-
-  @Column()
   comment: string;
 
   @Column()
   dateCreated: Date;
 
-  @Column()
+  @Column({ default: 0 })
   up_votes: number;
 
-  @Column()
+  @Column({ default: 0 })
   down_votes: number;
 
-  @ManyToOne(() => Post, (post) => post.comments)
+  @ManyToOne(() => Post, (post: Post) => post.comments)
   post: Post;
+
+  @ManyToOne(() => User, (user: User) => user.comments)
+  user: User;
+
+  @OneToMany(
+    () => Comment_Likes_User,
+    (comment_likes_user: Comment_Likes_User) => comment_likes_user.user,
+    {
+      cascade: true,
+    }
+  )
+  comment_likes: Comment[];
 }
