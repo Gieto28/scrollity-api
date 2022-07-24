@@ -1,7 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { verify, JwtPayload, VerifyErrors } from "jsonwebtoken";
-import { AppDataSource } from "../data-source";
-import { User } from "../entity/User";
+import { verify, VerifyErrors } from "jsonwebtoken";
 
 // paths which can be accessed by anywhere without authentication
 const publicPaths = ["/auth/login", "/auth/register", "/public", "/"];

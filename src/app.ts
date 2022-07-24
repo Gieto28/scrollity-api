@@ -1,8 +1,8 @@
 import express, { Express } from "express";
 import cors from "cors";
 import routes from "./routes";
-import { verifyToken } from "./security/token.middleware";
 import path from "path";
+import { verifyToken } from "./security/token.middleware";
 
 const app: Express = express();
 

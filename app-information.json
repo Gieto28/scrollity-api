@@ -1,0 +1,46 @@
+{
+  "links": {
+    "github": "https://github.com/Gieto28/scrollity-api",
+    "linkedIn": "https://www.linkedin.com/in/28miguelsilva/"
+  },
+  "APIRoutes": {
+    "publicRoutes": [
+      "/auth/login",
+      "/auth/register",
+      "/public",
+      "/"
+    ],
+    "/": "API information",
+    "/auth": {
+      "/login": "logins the user",
+      "/register": "registers the user"
+    },
+    "/comment": {
+      "/:id": "get comment based on it's id",
+      "/all/:post_id": "get all comments of a post using the post id",
+      "/create": "creates a comment",
+      "/vote": "gets the comment votes",
+      "/checkVote/:comment_id/:user_id": "handles the votes "
+    },
+    "/file": {
+      "/upload": "handling file uploads"
+    },
+    "/notifications": {
+      "/:user_id": "gets all user notifications",
+      "/update/:notification_id": "updates seen or not seen notifications"
+    },
+    "/post": {
+      "/:id": "gets a single post based on it's id",
+      "/all/:category/:take/:skip": "gets posts infinitely using take and skip",
+      "/create": "creates a post",
+      "/vote": "gets the post votes",
+      "/checkVote/:post_id/:user_id": "handles the votes"
+    },
+    "/profile": {
+      "/:id": "gets profile by it's id",
+      "/all": "gets all profiles (not used in app)",
+      "/update": "updates the name or password of a profile",
+      "/posts/:user_id/:option": "retrieves user posts based on options, either 'posts' or 'likes'"
+    }
+  }
+}

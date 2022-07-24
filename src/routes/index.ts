@@ -1,5 +1,6 @@
 import { Response, Router } from "express";
 import { name, version } from "../../package.json";
+import appInfo from "../../app-information.json";
 import authRoutes from "./auth";
 import postsRoutes from "./post";
 import commentsRoutes from "./comment";
@@ -13,7 +14,8 @@ routes.get("/", async (_, res: Response) =>
   res.json({
     name,
     version,
-    github: "https://github.com/Gieto28/scrollity-api",
+    appInfo,
+    Author: "Miguel Angelo",
   })
 );
 

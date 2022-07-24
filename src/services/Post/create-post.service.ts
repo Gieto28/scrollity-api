@@ -6,7 +6,6 @@ import { SuccessResponse } from "../../models";
 import * as OneSignal from "@onesignal/node-onesignal";
 import { client } from "../../one-signal";
 import { Notification } from "../../entity/Notification";
-import { randomUUID } from "crypto";
 
 /**
  *

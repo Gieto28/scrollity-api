@@ -1,13 +1,4 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  ManyToOne,
-  OneToMany,
-  OneToOne,
-} from "typeorm";
-import { Comment_Likes_User } from "./Comment_Likes_User";
-import { Post } from "./Post";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
 import { User } from "./User";
 
 @Entity()
