@@ -14,8 +14,6 @@ const multerConfig: multer.StorageEngine = multer.diskStorage({
       return;
     }
 
-    console.log(file);
-
     // if the file being uploaded comes from the create posts screen, it'll have posts as it's first characters
     if (file.originalname.split(".")[0] === "post") {
       if (fileType === "image") {
