@@ -7,8 +7,6 @@ import { User } from "../../entity/User";
  * @returns a token using expiration time, name, email and _id
  */
 const createToken = async (user: User): Promise<string> => {
-  console.log("user for token", user);
-
   const token: string = sign(
     {
       exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 180,

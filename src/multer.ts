@@ -29,7 +29,7 @@ const multerConfig: multer.StorageEngine = multer.diskStorage({
       // if the file being uploaded comes from the upload profile picture, it'll have profile as it's first characters
     } else if (file.originalname.split(".")[0] === "profile") {
       if (fileType === "image") {
-        return callback(null, `${defaultFolder}/profiles/images`);
+        return callback(null, `${defaultFolder}/profile/images`);
       } else {
         callback(null, null);
         throw new Error("you can only upload image files");

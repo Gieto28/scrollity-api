@@ -15,7 +15,7 @@ import getPostByTitle from "./Post/get-post-by-title.service";
 import getProfile from "./Profile/get-profile.service";
 import getUserPosts from "./Profile/get-user-posts.service";
 import updateProfile from "./Profile/update-profile.service";
-
+import updateProfileImage from "./Profile/update-profile-image.service";
 //comment
 import createComment from "./Comment/create-comment.service";
 import getAllComments from "./Comment/get-all-comments.service";
@@ -42,6 +42,7 @@ export {
   getProfile,
   getUserPosts,
   updateProfile,
+  updateProfileImage,
   //comment
   createComment,
   handleCommentVote,

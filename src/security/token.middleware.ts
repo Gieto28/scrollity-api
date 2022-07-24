@@ -18,8 +18,6 @@ const verifyToken = (
 
   const token: string = authHeader && authHeader.split(" ")[1];
 
-  console.log("header", authHeader);
-
   if (token == null) {
     return res.status(401).json({
       code: 401,

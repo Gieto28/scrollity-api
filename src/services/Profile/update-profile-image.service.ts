@@ -1,8 +1,6 @@
 import bcrypt from "bcrypt";
-import { userInfo } from "os";
 import { EntityManager, Repository } from "typeorm";
 import { AppDataSource } from "../../data-source";
-import { Notification } from "../../entity/Notification";
 import { User } from "../../entity/User";
 import { SuccessResponse } from "../../models";
 import createToken from "../Auth/token.service";
@@ -14,30 +12,27 @@ import createToken from "../Auth/token.service";
  * @param password user to change the password of the user, if it has value it'll replace it with the value, if it's null it'll stay the same
  * @returns a new token to be used by the front end and to be stored in the AsyncStorage
  */
-const updateNotification = async (
-  notification_id: number
+const uploadProfileImage = async (
+  user_id: number,
+  media_id: string
 ): Promise<SuccessResponse> => {
   try {
     const manager: EntityManager = AppDataSource.manager;
-    const table: Repository<Notification> =
-      manager.connection.getRepository(Notification);
+    const table: Repository<User> = manager.connection.getRepository(User);
 
-    const notification: Notification = await table.findOne({
-      where: { _id: notification_id },
+    const user: User | undefined = await table.findOne({
+      where: { _id: user_id },
     });
 
-    if (notification.seen) {
-      return;
-    }
+    user.picture = media_id;
+    user.dateEdited = new Date();
 
-    !notification.seen && (notification.seen = true);
+    await manager.save(user);
 
-    await manager.save(notification);
-
-    return { success: "successful update" };
+    return { success: "success" };
   } catch (e) {
     throw new Error(e.message);
   }
 };
 
-export default updateNotification;
+export default uploadProfileImage;
