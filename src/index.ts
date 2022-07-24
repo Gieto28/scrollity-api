@@ -7,7 +7,7 @@ AppDataSource.initialize()
     // start express server
     app.listen(process.env.PORT || 3003, () =>
       console.log(
-        `\u{1F525} Server starting on port ${process.env.PORT || 3003}
+        `\u{1F525} Server starting on port ${process.env.PORT || 3003}`
       )
     );
   })
