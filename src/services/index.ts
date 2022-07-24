@@ -23,7 +23,8 @@ import handleCommentVote from "./Comment/handle-comment-vote.service";
 import getComment from "./Comment/get-comment.service";
 import getUserCommentVote from "./Comment/get-user-comment-vote.service";
 // notifications
-import getHighestVotedPosts from "./Notifications/get-highest-voted.service";
+import getUserNotifications from "./Notifications/get-user-notifications.service";
+import updateNotification from "./Notifications/update-notification.service";
 
 export {
   // Auth
@@ -48,5 +49,6 @@ export {
   getAllComments,
   getUserCommentVote,
   // notifications,
-  getHighestVotedPosts,
+  getUserNotifications,
+  updateNotification,
 };

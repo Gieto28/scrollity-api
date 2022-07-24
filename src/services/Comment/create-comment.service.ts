@@ -6,6 +6,7 @@ import { User } from "../../entity/User";
 import { SuccessResponse } from "../../models";
 import * as OneSignal from "@onesignal/node-onesignal";
 import { client } from "../../one-signal";
+import { Notification } from "../../entity/Notification";
 
 /**
  *
@@ -25,6 +26,8 @@ const createComment = async (
     const user_table: Repository<User> = manager.connection.getRepository(User);
     const comment_table: Repository<Comment> =
       manager.connection.getRepository(Comment);
+    const notification_table: Repository<Notification> =
+      manager.connection.getRepository(Notification);
 
     const user: User = await user_table.findOne({
       where: { _id: user_id },
@@ -49,9 +52,16 @@ const createComment = async (
 
       await client.createNotification(notification);
     } catch (error) {
-      console.log("error when sending notification", error);
+      throw new Error(error.message);
     }
 
+    const new_notification: Notification = new Notification();
+    new_notification.user = user;
+    new_notification.title = "Congrats! Your comment has been published!";
+    new_notification.body = "Thank you for sharing";
+    new_notification.dateCreated = new Date();
+
+    await notification_table.save(new_notification);
     await comment_table.save(new_comment);
     return { success: "created comment successfully" };
   } catch (e) {

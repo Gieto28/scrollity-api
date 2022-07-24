@@ -19,7 +19,7 @@ const action = async (req: Request, res: Response): Promise<Response> => {
   } catch (e) {
     return res.status(404).json({
       code: 404,
-      error: "User Not found",
+      error: "Profile Not found",
       message: e.message,
     });
   }

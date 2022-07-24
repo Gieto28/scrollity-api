@@ -4,7 +4,7 @@ import { AppDataSource } from "../data-source";
 import { User } from "../entity/User";
 
 // paths which can be accessed by anywhere without authentication
-const publicPaths = ["/auth/login", "/auth/register", "/public"];
+const publicPaths = ["/auth/login", "/auth/register", "/public", "/"];
 
 // verifying token from header authorization
 const verifyToken = (
@@ -20,8 +20,9 @@ const verifyToken = (
 
   const token: string = authHeader && authHeader.split(" ")[1];
 
+  console.log("header", authHeader);
+
   if (token == null) {
-    console.log("token", token);
     return res.status(401).json({
       code: 401,
       error: "Unauthorized",
@@ -29,21 +30,17 @@ const verifyToken = (
     });
   }
 
-  verify(
-    token,
-    process.env.TYPEORM_SECRET,
-    async (e: VerifyErrors, payload: JwtPayload) => {
-      if (e) {
-        return res.status(403).json({
-          code: 403,
-          error: "Forbidden",
-          message: "missing web token",
-        });
-      }
-
-      next();
+  verify(token, process.env.TYPEORM_SECRET, async (e: VerifyErrors) => {
+    if (e) {
+      return res.status(403).json({
+        code: 403,
+        error: "Forbidden",
+        message: "missing web token",
+      });
     }
-  );
+
+    next();
+  });
   //
 };
 

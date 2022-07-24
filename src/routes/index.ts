@@ -13,6 +13,7 @@ routes.get("/", async (_, res: Response) =>
   res.json({
     name,
     version,
+    github: "https://github.com/Gieto28/scrollity-api",
   })
 );
 

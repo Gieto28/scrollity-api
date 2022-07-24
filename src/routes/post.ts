@@ -11,7 +11,7 @@ import {
 const routes: Router = Router();
 
 routes.get("/:id", getPostAction);
-routes.get("/all/:category", getAllPostsAction);
+routes.get("/all/:category/:take/:skip", getAllPostsAction);
 routes.get("/search/:title", getPostByTitle);
 
 routes.post("/create", createPostsAction);

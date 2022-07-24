@@ -10,7 +10,7 @@ const action = async (req: Request, res: Response) => {
 
     return res.status(200).json(data);
   } catch (e) {
-    return res.status(400).json({
+    return res.status(404).json({
       code: 404,
       error: "Error when fetching posts for profile posts",
       message: e.message,

@@ -5,6 +5,8 @@ import { User } from "../../entity/User";
 import { SuccessResponse } from "../../models";
 import * as OneSignal from "@onesignal/node-onesignal";
 import { client } from "../../one-signal";
+import { Notification } from "../../entity/Notification";
+import { randomUUID } from "crypto";
 
 /**
  *
@@ -26,6 +28,8 @@ const createPost = async (
     const manager: EntityManager = AppDataSource.manager;
     const post_table: Repository<Post> = manager.connection.getRepository(Post);
     const user_table: Repository<User> = manager.connection.getRepository(User);
+    const notification_table: Repository<Notification> =
+      manager.connection.getRepository(Notification);
 
     const user: User = await user_table.findOne({
       where: { _id: user_id },
@@ -48,10 +52,18 @@ const createPost = async (
 
       await client.createNotification(notification);
     } catch (error) {
-      console.log("error when sending notification", error);
+      throw new Error(error.message);
     }
 
+    const new_notification: Notification = new Notification();
+    new_notification.user = user;
+    new_notification.title = "Congrats! Your post has been published!";
+    new_notification.body = "Thank you for sharing";
+    new_notification.dateCreated = new Date();
+
+    await notification_table.save(new_notification);
     await post_table.save(post);
+
     return { success: "created post successfully" };
   } catch (e) {
     throw new Error(e.message);

@@ -24,7 +24,7 @@ const action = async (req: Request, res: Response): Promise<Response> => {
   } catch (e) {
     return res.status(400).json({
       code: 400,
-      error: "error while creating user",
+      error: "Error while creating user",
       message: e.message,
     });
   }

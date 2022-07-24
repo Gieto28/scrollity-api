@@ -20,7 +20,7 @@ const action = async (req: Request, res: Response): Promise<Response> => {
   } catch (e) {
     return res.status(401).json({
       code: 401,
-      error: "Unauthorized / Bad credentials",
+      error: "Bad credentials",
       message: e.message,
     });
   }

@@ -8,7 +8,12 @@ import { Post } from "../../entity/Post";
  *
  * @returns either status 200 (OK) **OR** status 400 (Bad Request)
  */
-const getAllPosts = async (category: string): Promise<Post[]> => {
+const getAllPosts = async (
+  category: string,
+  take: number,
+  skip: number
+): Promise<Post[]> => {
+  console.log(take, skip);
   try {
     const table: Repository<Post> =
       AppDataSource.manager.connection.getRepository(Post);
@@ -22,7 +27,8 @@ const getAllPosts = async (category: string): Promise<Post[]> => {
             up_votes: "DESC",
             dateCreated: "DESC",
           },
-          take: 10,
+          take: take,
+          skip: take * skip,
           select: {
             user: {
               _id: true,

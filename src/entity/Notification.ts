@@ -4,6 +4,7 @@ import {
   Column,
   ManyToOne,
   OneToMany,
+  OneToOne,
 } from "typeorm";
 import { Comment_Likes_User } from "./Comment_Likes_User";
 import { Post } from "./Post";
@@ -23,7 +24,7 @@ export class Notification {
   @Column()
   dateCreated: Date;
 
-  @Column()
+  @Column({ default: false })
   seen: boolean;
 
   @ManyToOne(() => User, (user: User) => user.notifications)

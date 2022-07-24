@@ -1,8 +1,12 @@
 import { Router } from "express";
-import { getHighestVotedPosts } from "../services";
+import {
+  getUserNotificationsAction,
+  updateNotificationAction,
+} from "../actions/notifications";
 
 const routes: Router = Router();
 
-routes.get("/highestVoted/:user_id", getHighestVotedPosts);
+routes.get("/:user_id", getUserNotificationsAction);
+routes.post("/update/:notification_id", updateNotificationAction);
 
 export default routes;
