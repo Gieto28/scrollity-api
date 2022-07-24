@@ -1,5 +1,4 @@
-import { createQuery } from "mysql2/typings/mysql/lib/Connection";
-import { createQueryBuilder, DataSource, Repository } from "typeorm";
+import { Repository } from "typeorm";
 import { AppDataSource } from "../../data-source";
 import { Post } from "../../entity/Post";
 
@@ -13,7 +12,6 @@ const getAllPosts = async (
   take: number,
   skip: number
 ): Promise<Post[]> => {
-  console.log(take, skip);
   try {
     const table: Repository<Post> =
       AppDataSource.manager.connection.getRepository(Post);
@@ -44,7 +42,8 @@ const getAllPosts = async (
           order: {
             dateCreated: "DESC",
           },
-          take: 10,
+          take: take,
+          skip: take * skip,
           relations: ["user", "comments"],
           select: {
             user: {
@@ -62,7 +61,8 @@ const getAllPosts = async (
         //   .getMany();
         const RandomPosts: Post[] = await table.find({
           relations: ["user", "comments"],
-          take: 10,
+          take: take,
+          skip: take * skip,
         });
         return RandomPosts;
 
@@ -70,7 +70,8 @@ const getAllPosts = async (
       default:
         const CategoryPosts: Post[] = await table.find({
           where: { category },
-          take: 10,
+          take: take,
+          skip: take * skip,
           relations: ["user", "comments"],
           select: {
             user: {
