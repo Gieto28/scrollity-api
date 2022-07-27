@@ -47,6 +47,7 @@ const createComment = async (
       const notification = new OneSignal.Notification();
       notification.app_id = process.env.ONESIGNAL_APP_ID;
       notification.template_id = process.env.COMMENT_TEMPLATE_ID;
+      notification.included_segments = ["Subscribed Users"];
       notification.include_external_user_ids = [user_id.toString()];
 
       await client.createNotification(notification);

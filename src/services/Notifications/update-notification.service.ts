@@ -26,8 +26,6 @@ const updateNotification = async (
       where: { _id: notification_id },
     });
 
-    console.log(notification.seen);
-
     if (notification.seen) {
       return;
     }
