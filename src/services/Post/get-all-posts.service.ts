@@ -55,10 +55,6 @@ const getAllPosts = async (
 
       // when Random is selected, it's supposed to return posts randomly without any order whatsoever
       case "Random":
-        // const RandomPosts = await createQueryBuilder(Post, "Post")
-        //   .orderBy("RAND()")
-        //   .limit(10)
-        //   .getMany();
         const RandomPosts: Post[] = await table.find({
           relations: ["user", "comments"],
           take: take,
