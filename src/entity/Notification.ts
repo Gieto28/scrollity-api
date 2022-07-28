@@ -18,6 +18,8 @@ export class Notification {
   @Column({ default: false })
   seen: boolean;
 
-  @ManyToOne(() => User, (user: User) => user.notifications)
+  @ManyToOne(() => User, (user: User) => user.notifications, {
+    onDelete: "CASCADE",
+  })
   user: User;
 }

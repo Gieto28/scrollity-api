@@ -41,17 +41,20 @@ export class Post {
 
   @ManyToOne(() => User, (user: User) => user.posts, {
     cascade: true,
+    onDelete: "CASCADE",
   })
   user: User;
 
   @OneToMany(() => Comment, (comment: Comment) => comment.post, {
     cascade: true,
+    onDelete: "CASCADE",
   })
   comments: Comment[];
 
   @OneToMany(
     () => Post_Likes_User,
-    (post_likes_user: Post_Likes_User) => post_likes_user.user
+    (post_likes_user: Post_Likes_User) => post_likes_user.user,
+    { onDelete: "CASCADE" }
   )
   likes: User[];
 }
