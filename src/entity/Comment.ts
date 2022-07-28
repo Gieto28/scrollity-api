@@ -26,16 +26,17 @@ export class Comment {
   @Column({ default: 0 })
   down_votes: number;
 
-  @ManyToOne(() => Post, (post: Post) => post.comments)
+  @ManyToOne(() => Post, (post: Post) => post.comments, { onDelete: 'CASCADE',})
   post: Post;
 
-  @ManyToOne(() => User, (user: User) => user.comments)
+  @ManyToOne(() => User, (user: User) => user.comments, { onDelete: 'CASCADE',})
   user: User;
 
   @OneToMany(
     () => Comment_Likes_User,
     (comment_likes_user: Comment_Likes_User) => comment_likes_user.user,
-    {
+    { 
+      onDelete: 'CASCADE',
       cascade: true,
     }
   )
